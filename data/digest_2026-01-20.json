@@ -1,0 +1,77 @@
+{
+  "date": "2026-01-20",
+  "categories": {
+    "新闻": [
+      {
+        "标题": "停止担忧，让AI帮助拯救你的生命",
+        "内容": "AI并不完美，但它无需完美就能改善医疗。",
+        "日期": "2026-01-19T22:43:14",
+        "来源": "纽约时报",
+        "链接": "https://www.nytimes.com/2026/01/19/opinion/ai-health-medical-care.html"
+      },
+      {
+        "标题": "2025年融资超1亿美元的55家美国AI初创公司",
+        "内容": "去年对美国及全球AI行业是里程碑式的一年，2025年将如何表现？",
+        "日期": "2026-01-19T18:06:34",
+        "来源": "TechCrunch",
+        "链接": "https://techcrunch.com/2026/01/19/here-are-the-49-us-ai-startups-that-have-raised-100m-or-more-in-2025/"
+      },
+      {
+        "标题": "元宇宙的衰落！",
+        "内容": "随着VR被AI超越，元宇宙正走向末路，Meta的VR野心还面临其他挑战。",
+        "日期": "2026-01-19T16:00:00",
+        "来源": "TechCrunch",
+        "链接": "https://techcrunch.com/2026/01/19/well-there-goes-the-metaverse/"
+      },
+      {
+        "标题": "VC为何押注AI安全：失控AI与影子AI的挑战",
+        "内容": "初创公司Witness AI致力于解决AI安全问题，包括检测员工使用未经批准的工具、阻止攻击和确保合规。",
+        "日期": "2026-01-19T16:00:00",
+        "来源": "TechCrunch",
+        "链接": "https://techcrunch.com/2026/01/19/rogue-agents-and-shadow-ai-why-vcs-are-betting-big-on-ai-security/"
+      },
+      {
+        "标题": "OpenAI 2026年聚焦“实际应用”",
+        "内容": "OpenAI CFO Sarah Friar表示，公司将在2026年重点推动AI的实际应用，同时努力解决基础设施和资金问题。",
+        "日期": "2026-01-19T21:05:30",
+        "来源": "The Verge",
+        "链接": "https://www.theverge.com/news/864229/openai-focus-practical-adoption-sarah-friar"
+      },
+      {
+        "标题": "Razer CEO：玩家尚未意识到他们已爱上AI游戏开发",
+        "内容": "Razer CEO Min-Liang Tan在CES 2026访谈中表示，AI正悄然改变游戏开发，但玩家对此认知尚浅。",
+        "日期": "2026-01-19T15:00:00",
+        "来源": "The Verge",
+        "链接": "https://www.theverge.com/podcast/863361/razer-ceo-min-liang-tan-ces-2026-ai-gaming-project-ava-interview"
+      }
+    ],
+    "明星公司动态": [],
+    "油管博主": [
+      {
+        "标题": "OpenAI“双面间谍”风波解析",
+        "内容": "",
+        "日期": "2026-01-19T15:37:10",
+        "来源": "Matt Wolfe",
+        "链接": "https://www.youtube.com/shorts/xieh2k-9oAM"
+      },
+      {
+        "标题": "Claude代码详解（及使用方法）",
+        "内容": "",
+        "日期": "2026-01-19T19:45:03",
+        "来源": "Greg Isenberg",
+        "链接": "https://www.youtube.com/watch?v=zxMjOqM7DFs"
+      }
+    ],
+    "YouTube热点": [],
+    "Twitter热点": [],
+    "TikTok热点": []
+  },
+  "analysis": {
+    "summary": "今日AI领域焦点包括：医疗AI的应用潜力、美国AI初创公司融资热潮、元宇宙的衰退与VR困境、AI安全成为投资热点、OpenAI转型实际应用、以及游戏行业对AI的隐蔽依赖。YouTube博主则关注OpenAI的内部争议和Claude技术解析。",
+    "trends": [
+      "AI医疗应用",
+      "元宇宙衰退与AI崛起",
+      "VC押注AI安全"
+    ]
+  }
+}

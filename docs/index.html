@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-01-20 AI 资讯日报</title>
+    <style>
+        :root { --primary: #6366f1; --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 40px 20px; text-align: center; border-radius: 16px; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .summary { background: var(--card); border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 4px solid var(--primary); }
+        .summary h2 { color: var(--primary); margin-bottom: 15px; }
+        .trends { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .trend { background: rgba(99,102,241,0.2); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 0.9em; }
+        .section { margin-bottom: 40px; }
+        .section-title { font-size: 1.5em; margin-bottom: 20px; padding-left: 15px; border-left: 4px solid var(--primary); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid #334155; transition: all 0.2s; cursor: pointer; }
+        .card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .card-title { font-size: 1.1em; font-weight: 600; margin-bottom: 10px; }
+        .card-content { color: var(--muted); font-size: 0.95em; margin-bottom: 15px; }
+        .card-meta { display: flex; justify-content: space-between; font-size: 0.85em; color: var(--muted); padding-top: 15px; border-top: 1px solid #334155; }
+        .source { color: var(--primary); font-weight: 500; }
+        footer { text-align: center; padding: 40px 20px; color: var(--muted); }
+        a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI 资讯日报</h1>
+            <div>2026-01-20</div>
+        </header>
+
+        
+        <div class="summary">
+            <h2>📝 今日摘要</h2>
+            <p>今日AI领域焦点包括：医疗AI的应用潜力、美国AI初创公司融资热潮、元宇宙的衰退与VR困境、AI安全成为投资热点、OpenAI转型实际应用、以及游戏行业对AI的隐蔽依赖。YouTube博主则关注OpenAI的内部争议和Claude技术解析。</p>
+            
+            <div class="trends">
+                <span class="trend">AI医疗应用</span><span class="trend">元宇宙衰退与AI崛起</span><span class="trend">VC押注AI安全</span>
+            </div>
+            
+        </div>
+        
+
+        
+        
+        <div class="section">
+            <h2 class="section-title">新闻</h2>
+            <div class="grid">
+                
+                <div class="card" onclick="window.open('https://www.nytimes.com/2026/01/19/opinion/ai-health-medical-care.html', '_blank')">
+                    <div class="card-title">停止担忧，让AI帮助拯救你的生命</div>
+                    <div class="card-content">AI并不完美，但它无需完美就能改善医疗。...</div>
+                    <div class="card-meta">
+                        <span class="source">纽约时报</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://techcrunch.com/2026/01/19/here-are-the-49-us-ai-startups-that-have-raised-100m-or-more-in-2025/', '_blank')">
+                    <div class="card-title">2025年融资超1亿美元的55家美国AI初创公司</div>
+                    <div class="card-content">去年对美国及全球AI行业是里程碑式的一年，2025年将如何表现？...</div>
+                    <div class="card-meta">
+                        <span class="source">TechCrunch</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://techcrunch.com/2026/01/19/well-there-goes-the-metaverse/', '_blank')">
+                    <div class="card-title">元宇宙的衰落！</div>
+                    <div class="card-content">随着VR被AI超越，元宇宙正走向末路，Meta的VR野心还面临其他挑战。...</div>
+                    <div class="card-meta">
+                        <span class="source">TechCrunch</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://techcrunch.com/2026/01/19/rogue-agents-and-shadow-ai-why-vcs-are-betting-big-on-ai-security/', '_blank')">
+                    <div class="card-title">VC为何押注AI安全：失控AI与影子AI的挑战</div>
+                    <div class="card-content">初创公司Witness AI致力于解决AI安全问题，包括检测员工使用未经批准的工具、阻止攻击和确保合规。...</div>
+                    <div class="card-meta">
+                        <span class="source">TechCrunch</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://www.theverge.com/news/864229/openai-focus-practical-adoption-sarah-friar', '_blank')">
+                    <div class="card-title">OpenAI 2026年聚焦“实际应用”</div>
+                    <div class="card-content">OpenAI CFO Sarah Friar表示，公司将在2026年重点推动AI的实际应用，同时努力解决基础设施和资金问题。...</div>
+                    <div class="card-meta">
+                        <span class="source">The Verge</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://www.theverge.com/podcast/863361/razer-ceo-min-liang-tan-ces-2026-ai-gaming-project-ava-interview', '_blank')">
+                    <div class="card-title">Razer CEO：玩家尚未意识到他们已爱上AI游戏开发</div>
+                    <div class="card-content">Razer CEO Min-Liang Tan在CES 2026访谈中表示，AI正悄然改变游戏开发，但玩家对此认知尚浅。...</div>
+                    <div class="card-meta">
+                        <span class="source">The Verge</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <div class="section">
+            <h2 class="section-title">油管博主</h2>
+            <div class="grid">
+                
+                <div class="card" onclick="window.open('https://www.youtube.com/shorts/xieh2k-9oAM', '_blank')">
+                    <div class="card-title">OpenAI“双面间谍”风波解析</div>
+                    
+                    <div class="card-meta">
+                        <span class="source">Matt Wolfe</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="window.open('https://www.youtube.com/watch?v=zxMjOqM7DFs', '_blank')">
+                    <div class="card-title">Claude代码详解（及使用方法）</div>
+                    
+                    <div class="card-meta">
+                        <span class="source">Greg Isenberg</span>
+                        <span>2026-01-19</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <footer>
+            <p>🤖 由 GitHub Actions + Claude AI 自动生成</p>
+            <p>更新时间：2026-01-20 10:24:20</p>
+        </footer>
+    </div>
+</body>
+</html>
