@@ -15,8 +15,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,10 +43,18 @@ jobs:
       - name: 生成网页
         run: python scripts/generate_html.py
 
+      - name: 配置 Pages
+        uses: actions/configure-pages@v4
+
       - name: 上传 Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'docs/'
+          retention-days: 1
+
+      - name: 部署 Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: 提交数据
         run: |
@@ -52,14 +63,3 @@ jobs:
           git add data/ docs/
           git diff --staged --quiet || git commit -m "🤖 $(date '+%Y-%m-%d')"
           git push --force
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: 部署到 Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
