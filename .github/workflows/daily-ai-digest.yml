@@ -10,14 +10,15 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  generate:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -39,16 +40,26 @@ jobs:
       - name: 生成网页
         run: python scripts/generate_html.py
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: 上传 Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'docs/'
 
-      - uses: actions/deploy-pages@v4
-
-      - name: 提交更新
+      - name: 提交数据
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add data/ docs/
           git diff --staged --quiet || git commit -m "🤖 $(date '+%Y-%m-%d')"
           git push --force
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
