@@ -1,0 +1,54 @@
+name: AI 资讯日报
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 0:00 (北京时间 8:00)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 生成资讯
+        env:
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          SILICONFLOW_MODEL: ${{ vars.SILICONFLOW_MODEL || 'deepseek-ai/DeepSeek-V3' }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: python scripts/generate_digest.py
+
+      - name: 生成网页
+        run: python scripts/generate_html.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/'
+
+      - uses: actions/deploy-pages@v4
+
+      - name: 提交更新
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add data/ docs/
+          git diff --staged --quiet || git commit -m "🤖 $(date '+%Y-%m-%d')"
+          git push
