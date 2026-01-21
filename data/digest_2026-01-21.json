@@ -3,132 +3,91 @@
   "categories": {
     "新闻": [
       {
-        "标题": "NYT烹饪新版自动缩放食谱使用技巧",
-        "内容": "NYT烹饪的新自动功能可即时调整食谱份量，遵循这些技巧（和直觉）来充分利用。",
+        "标题": "NYT Cooking新版自动缩放食谱功能使用技巧",
+        "内容": "NYT Cooking的新功能可即时调整食谱分量，本文提供实用建议（和直觉引导）以最大化利用该功能。",
+        "摘要": "《纽约时报》烹饪频道推出自动调整食谱分量的功能，并提供实用技巧帮助用户灵活使用这一创新工具，平衡科技与烹饪直觉。",
         "日期": "2026-01-20T17:42:07",
         "来源": "纽约时报",
         "链接": "https://cooking.nytimes.com/article/nyt-cooking-scaled-recipes"
       },
       {
         "标题": "印度语音平台Bolna获General Catalyst 630万美元融资",
-        "内容": "Bolna称其75%收入来自自助客户，平台专注于印度市场语音协作技术开发。",
+        "内容": "Bolna表示其75%收入来自自助服务客户，专注印度市场的语音编排技术。",
+        "摘要": "印度语音技术初创公司Bolna完成630万美元融资，主要收入源于自助服务客户，将继续深耕本土语音交互解决方案。",
         "日期": "2026-01-21T02:00:00",
         "来源": "TechCrunch",
         "链接": "https://techcrunch.com/2026/01/20/bolna-nabs-6-3-million-from-general-catalyst-for-its-india-focused-voice-orchestration-platform/"
-      },
+      }
+    ],
+    "明星公司动态": [
       {
-        "标题": "Anthropic CEO在达沃斯抨击英伟达对华销售计划",
-        "内容": "Dario Amodei公开批评美国政府及芯片企业对华销售政策，矛头直指投资方英伟达。",
+        "标题": "Anthropic CEO在达沃斯公开批评Nvidia",
+        "内容": "Anthropic首席执行官Dario Amodei就芯片公司对华销售计划批评美国政府及半导体企业，矛头直指重要合作伙伴Nvidia。",
+        "摘要": "Anthropic CEO在达沃斯论坛公开谴责Nvidia等芯片企业对华销售政策，引发行业震动，尤其因其与Nvidia的合作关系备受关注。",
         "日期": "2026-01-21T01:39:58",
         "来源": "TechCrunch",
         "链接": "https://techcrunch.com/2026/01/20/anthropics-ceo-stuns-davos-with-nvidia-criticism/"
       },
       {
-        "标题": "ChatGPT新增年龄预测功能保护青少年用户",
-        "内容": "通过预测用户年龄阻止未成年接触不当内容，误判成人用户可手动更正年龄信息。",
-        "日期": "2026-01-20T23:29:56",
-        "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/in-an-effort-to-protect-young-users-chatgpt-will-now-predict-how-old-you-are/"
+        "标题": "OpenAI推出ChatGPT年龄预测功能保护青少年",
+        "内容": "通过预测用户年龄实施内容过滤，防止向18岁以下用户推送不当内容，成人误判可在账户设置中更正。",
+        "摘要": "OpenAI为ChatGPT新增年龄预测系统，自动识别未成年用户并启动保护机制，误判成人用户可手动验证年龄。",
+        "日期": "Tue Jan 20 19:01:03 +0000 2026",
+        "来源": "OpenAI",
+        "链接": "https://x.com/OpenAI/status/2013688237772898532"
       },
       {
-        "标题": "马斯克宣布重启特斯拉Dojo3芯片专攻太空AI计算",
-        "内容": "原自动驾驶训练芯片转向空间计算领域，为太空探索提供AI算力支持。",
-        "日期": "2026-01-20T22:10:41",
-        "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/elon-musk-says-teslas-restarted-dojo3-will-be-for-space-based-ai-compute/"
-      },
-      {
-        "标题": "人本AI初创Humans&获4.8亿美元种子轮融资",
-        "内容": "由Anthropic等公司前员工创立，主张AI增强人类能力，估值已达44.8亿美元。",
-        "日期": "2026-01-20T16:00:57",
-        "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/humans-a-human-centric-ai-startup-founded-by-anthropic-xai-google-alums-raised-480m-seed-round/"
-      },
-      {
-        "标题": "印度编码平台Emergent估值飙升至3亿美元",
-        "内容": "软银等注资7000万美元，公司年营收达5000万美元并计划2026年4月破亿。",
-        "日期": "2026-01-20T13:50:09",
-        "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/indian-vibe-coding-startup-emergent-raises-70m-at-300m-valuation-from-softbank-khosla-ventures/"
-      },
-      {
-        "标题": "比亚迪如何超越特斯拉",
-        "内容": "通过海豚冲浪等差异化车型，中国电动车企成为新市场领导者。",
-        "日期": "2026-01-20T13:40:00",
-        "来源": "The Verge",
-        "链接": "https://www.theverge.com/podcast/864314/byd-tesla-china-evs-vergecast"
+        "标题": "GoogleDeepMind发布TranslateGemma开源翻译模型",
+        "内容": "新推出支持55种语言的翻译模型系列，提供4B/12B/27B三种参数规模，兼顾效率与质量。",
+        "摘要": "GoogleDeepMind开源TranslateGemma多语言翻译模型，覆盖55种语言，不同参数版本满足差异化需求。",
+        "日期": "Thu Jan 15 17:09:35 +0000 2026",
+        "来源": "GoogleDeepMind",
+        "链接": "https://x.com/GoogleDeepMind/status/2011848249850630363"
       }
     ],
     "YouTube热点": [
       {
-        "标题": "2-3人被AI团队热门席位淘汰！EP7",
-        "内容": "",
-        "日期": "2026-01-20T12:30:07Z",
-        "来源": "YouTube",
-        "链接": "https://youtube.com/watch?v=h8DqBBAPAl8"
-      },
-      {
-        "标题": "我们的视频使用AI了吗？#幕后花絮",
-        "内容": "揭秘视频制作中AI技术的应用场景与创作过程。",
+        "标题": "我们的视频使用AI吗？#幕后花絮",
+        "内容": "探讨视频制作中AI技术的应用情况。",
         "日期": "2026-01-20T21:01:07Z",
         "来源": "YouTube",
         "链接": "https://youtube.com/watch?v=j3qUVnqCzUo"
       },
       {
-        "标题": "其他AI vs Siri（第二集）🤖",
+        "标题": "其他AI对决Siri（第二部）🤖",
         "内容": "",
         "日期": "2026-01-20T16:11:16Z",
         "来源": "YouTube",
         "链接": "https://youtube.com/watch?v=ZOvJbeYRnjY"
-      },
-      {
-        "标题": "AI展示BTS巴士 #短视频",
-        "内容": "与AI生成角色互动创作的娱乐内容，全部视觉效果均由AI生成。",
-        "日期": "2026-01-20T09:05:25Z",
-        "来源": "YouTube",
-        "链接": "https://youtube.com/watch?v=dvnOEZ5Dlz8"
       }
     ],
-    "明星公司动态": [
+    "GitHub热门": [
       {
-        "标题": "OpenAI将推出ChatGPT广告测试",
-        "内容": "未来数周开始在免费版测试广告，承诺不影响回答质量且严格区隔商业内容，付费用户无广告。",
-        "日期": "2026-01-16T18:00:12Z",
-        "来源": "OpenAI",
-        "链接": "https://x.com/OpenAI/status/2012223373489614951"
+        "标题": "microsoft/agent-lightning",
+        "内容": "AI智能体的高效训练工具。",
+        "摘要": "微软开源的Agent Lightning项目专注于提升AI代理的训练效率，获今日98星标。",
+        "日期": "2026-01-21T03:56:33.937503",
+        "来源": "GitHub",
+        "链接": "https://github.com/microsoft/agent-lightning",
+        "额外": "⭐ 98 stars today | 🔥 今日 0 | 💻 Python"
       },
       {
-        "标题": "谷歌发布55语言翻译模型TranslateGemma",
-        "内容": "推出4B至27B参数规模的开源翻译模型系列，在效率与质量间取得平衡。",
-        "日期": "2026-01-15T17:09:35Z",
-        "来源": "GoogleDeepMind",
-        "链接": "https://x.com/GoogleDeepMind/status/2011848249850630363"
-      },
-      {
-        "标题": "DeepMind用Gemini证明代数几何新定理",
-        "内容": "数学专用版AI协助完成学术突破，成果发表于合作研究论文。",
-        "日期": "2026-01-14T16:43:17Z",
-        "来源": "GoogleDeepMind",
-        "链接": "https://x.com/GoogleDeepMind/status/2011479241141997623"
-      },
-      {
-        "标题": "医疗AI模型MedGemma 1.5发布",
-        "内容": "支持离线运行的轻量化模型，提升医学影像与文本记录处理能力。",
-        "日期": "2026-01-13T21:06:50Z",
-        "来源": "GoogleDeepMind",
-        "链接": "https://x.com/GoogleDeepMind/status/2011183180725043288"
+        "标题": "iOfficeAI/AionUi",
+        "内容": "支持多CLI工具的本地开源协作平台。",
+        "摘要": "AionUi提供对Gemini/Claude等多种CLI工具的本地化支持，单日斩获970星标。",
+        "日期": "2026-01-21T03:56:33.937503",
+        "来源": "GitHub",
+        "链接": "https://github.com/iOfficeAI/AionUi",
+        "额外": "⭐ 970 stars today | 🔥 今日 0 | 💻 TypeScript"
       }
-    ],
-    "油管博主": [],
-    "Twitter热点": [],
-    "TikTok热点": []
+    ]
   },
   "analysis": {
-    "summary": "今日焦点：特斯拉转向太空AI芯片研发，ChatGPT推出青少年保护机制，比亚迪电动车战略受关注；AI领域融资活跃，医疗与翻译模型持续迭代；YouTube创作者探索AI视频制作新形式。",
+    "summary": "今日重点关注：1）OpenAI推出年龄验证系统强化青少年保护 2）GoogleDeepMind开源多语言翻译模型 3）微软Agent Lightning项目登顶GitHub热门",
     "trends": [
-      "企业级AI芯片竞争扩展至太空领域",
-      "内容平台加强未成年保护措施",
-      "开源翻译模型支持语言数量突破"
+      "AI伦理保护（年龄验证）",
+      "开源多语言模型",
+      "AI代理训练工具"
     ]
   }
 }
