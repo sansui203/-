@@ -65,6 +65,7 @@ TEMPLATE = """<!DOCTYPE html>
                 <div class="card" onclick="window.open('{{ item.链接 }}', '_blank')">
                     <div class="card-title">{{ item.标题 }}</div>
                     {% if item.内容 %}<div class="card-content">{{ item.内容[:150] }}...</div>{% endif %}
+                    {% if item.get('额外') %}<div class="card-content" style="color: #fbbf24;">{{ item.额外 }}</div>{% endif %}
                     <div class="card-meta">
                         <span class="source">{{ item.来源 }}</span>
                         <span>{{ item.日期[:10] if item.日期 else '' }}</span>

@@ -277,6 +277,42 @@ class AIDigestGenerator:
         except Exception as e:
             print(f"  ❌ {e}")
 
+    # ==================== GitHub（无需 API）====================
+    
+    def fetch_github_trending(self):
+        """获取 GitHub 热门项目"""
+        print("\n⭐ GitHub 热门...")
+        
+        try:
+            # 使用第三方 API
+            r = requests.get("https://api.gitterapp.com/repositories", params={
+                "language": "",
+                "since": "daily"
+            }, timeout=30)
+            repos = r.json()
+            
+            count = 0
+            for repo in repos[:15]:
+                # 只要 AI 相关或高热度项目
+                desc = (repo.get("description") or "").lower()
+                name = repo.get("name", "").lower()
+                stars_today = repo.get("starsSince", 0)
+                
+                if "ai" in desc or "ai" in name or stars_today > 100:
+                    self.all_items.append({
+                        "标题": f"{repo.get('author', '')}/{repo.get('name', '')}",
+                        "内容": repo.get("description", "")[:200],
+                        "日期": self.today.isoformat(),
+                        "来源": "GitHub",
+                        "板块": "GitHub热门",
+                        "链接": repo.get("url", ""),
+                        "额外": f"⭐ {repo.get('stars', 0):,} | 🔥 今日+{stars_today}"
+                    })
+                    count += 1
+            print(f"  ✅ {count} 条")
+        except Exception as e:
+            print(f"  ❌ {e}")
+
     # ==================== AI 处理 ====================
     
     def ai_process(self):
@@ -299,9 +335,10 @@ class AIDigestGenerator:
 1. 英文翻译成中文
 2. 长内容生成60-80字摘要  
 3. 按板块分组
+4. GitHub项目保留"额外"字段（星标数据）
 
 输出格式：
-{{"date":"{self.today_str}","categories":{{"新闻":[{{"标题":"","内容":"","日期":"","来源":"","链接":""}}],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1"]}}}}
+{{"date":"{self.today_str}","categories":{{"新闻":[{{"标题":"","内容":"","日期":"","来源":"","链接":"","额外":""}}],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1"]}}}}
 
 只输出JSON。"""
 
@@ -354,6 +391,7 @@ class AIDigestGenerator:
         self.safe_fetch("Twitter热门", self.fetch_twitter)
         self.safe_fetch("Twitter账号", self.fetch_twitter_accounts)
         self.safe_fetch("TikTok", self.fetch_tiktok)
+        self.safe_fetch("GitHub热门", self.fetch_github_trending)
         
         print(f"\n📦 共采集 {len(self.all_items)} 条")
         
