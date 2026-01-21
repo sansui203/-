@@ -1,134 +1,202 @@
 {
   "date": "2026-01-21",
   "categories": {
-    "新闻": [
+    "原始数据": [
       {
-        "标题": "NYT烹饪新版自动缩放食谱使用技巧",
-        "内容": "NYT烹饪的新自动功能可即时调整食谱份量，遵循这些技巧（和直觉）来充分利用。",
+        "标题": "Tips for Cooking With New Scaled Recipes on NYT Cooking",
+        "内容": "NYT Cooking’s new automatic feature can instantly scale a recipe up or down — follow these tips (and your instincts) to make the most of it.",
         "日期": "2026-01-20T17:42:07",
         "来源": "纽约时报",
+        "板块": "新闻",
         "链接": "https://cooking.nytimes.com/article/nyt-cooking-scaled-recipes"
       },
       {
-        "标题": "印度语音平台Bolna获General Catalyst 630万美元融资",
-        "内容": "Bolna称其75%收入来自自助客户，平台专注于印度市场语音协作技术开发。",
+        "标题": "Bolna nabs $6.3M from General Catalyst for its India-focused voice orchestration platform",
+        "内容": "Bolna said that 75% of its revenue is coming from self-serve customers.",
         "日期": "2026-01-21T02:00:00",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/bolna-nabs-6-3-million-from-general-catalyst-for-its-india-focused-voice-orchestration-platform/"
       },
       {
-        "标题": "Anthropic CEO在达沃斯抨击英伟达对华销售计划",
-        "内容": "Dario Amodei公开批评美国政府及芯片企业对华销售政策，矛头直指投资方英伟达。",
+        "标题": "Anthropic’s CEO stuns Davos with Nvidia criticism",
+        "内容": "Anthropic CEO Dario Amodei unloaded on both the administration and U.S. chip companies over plans to sell to China. The criticism was particularly notable because one of those chipmakers, Nvidia, is a",
         "日期": "2026-01-21T01:39:58",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/anthropics-ceo-stuns-davos-with-nvidia-criticism/"
       },
       {
-        "标题": "ChatGPT新增年龄预测功能保护青少年用户",
-        "内容": "通过预测用户年龄阻止未成年接触不当内容，误判成人用户可手动更正年龄信息。",
+        "标题": "In an effort to protect young users, ChatGPT will now predict how old you are",
+        "内容": "The feature is designed to stop problematic content from being delivered to users under the age of 18.",
         "日期": "2026-01-20T23:29:56",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/in-an-effort-to-protect-young-users-chatgpt-will-now-predict-how-old-you-are/"
       },
       {
-        "标题": "马斯克宣布重启特斯拉Dojo3芯片专攻太空AI计算",
-        "内容": "原自动驾驶训练芯片转向空间计算领域，为太空探索提供AI算力支持。",
+        "标题": "Elon Musk says Tesla’s restarted Dojo3 will be for ‘space-based AI compute’",
+        "内容": "Tesla aims to restart work on Dojo3, its previously abandoned third-generation AI chip. Only this time, Dojo3 won’t be aimed at training self-driving models on Earth. Instead, Musk says it will be ded",
         "日期": "2026-01-20T22:10:41",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/elon-musk-says-teslas-restarted-dojo3-will-be-for-space-based-ai-compute/"
       },
       {
-        "标题": "人本AI初创Humans&获4.8亿美元种子轮融资",
-        "内容": "由Anthropic等公司前员工创立，主张AI增强人类能力，估值已达44.8亿美元。",
+        "标题": "Humans&, a ‘human-centric’ AI startup founded by Anthropic, xAI, Google alums, raised $480M seed round",
+        "内容": "Humans&#038;, a startup that believes AI should empower people, not replace them, has reportedly raised a $480 million seed round at a $4.48 billion valuation.",
         "日期": "2026-01-20T16:00:57",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/humans-a-human-centric-ai-startup-founded-by-anthropic-xai-google-alums-raised-480m-seed-round/"
       },
       {
-        "标题": "印度编码平台Emergent估值飙升至3亿美元",
-        "内容": "软银等注资7000万美元，公司年营收达5000万美元并计划2026年4月破亿。",
+        "标题": "Indian vibe-coding startup Emergent triples valuation to $300M with $70M fundraise",
+        "内容": "The funding comes as the startup claims it has scaled ARR to $50 million and is targeting $100 million by April 2026.",
         "日期": "2026-01-20T13:50:09",
         "来源": "TechCrunch",
+        "板块": "新闻",
         "链接": "https://techcrunch.com/2026/01/20/indian-vibe-coding-startup-emergent-raises-70m-at-300m-valuation-from-softbank-khosla-ventures/"
       },
       {
-        "标题": "比亚迪如何超越特斯拉",
-        "内容": "通过海豚冲浪等差异化车型，中国电动车企成为新市场领导者。",
+        "标题": "How BYD beat Tesla",
+        "内容": "The Model S. The Mach-E. The Ioniq. The… Dolphin Surf? That's right, friends: There's a new biggest name in EVs, and it means you might soon be cruising down the highway in the Dolphin Surf. And you m",
         "日期": "2026-01-20T13:40:00",
         "来源": "The Verge",
+        "板块": "新闻",
         "链接": "https://www.theverge.com/podcast/864314/byd-tesla-china-evs-vergecast"
-      }
-    ],
-    "YouTube热点": [
+      },
       {
-        "标题": "2-3人被AI团队热门席位淘汰！EP7",
+        "标题": "2 ATAU 3 ORANG TERSINGKIR UNTUK KERUSI PANAS AI TEAM !!! EP7",
         "内容": "",
         "日期": "2026-01-20T12:30:07Z",
         "来源": "YouTube",
+        "板块": "YouTube热点",
         "链接": "https://youtube.com/watch?v=h8DqBBAPAl8"
       },
       {
-        "标题": "我们的视频使用AI了吗？#幕后花絮",
-        "内容": "揭秘视频制作中AI技术的应用场景与创作过程。",
+        "标题": "Do we use AI in our Videos? #vlog #behindthescenes #ai",
+        "内容": "Do we use AI in our Videos? #vlog #behindthescenes #ai.",
         "日期": "2026-01-20T21:01:07Z",
         "来源": "YouTube",
+        "板块": "YouTube热点",
         "链接": "https://youtube.com/watch?v=j3qUVnqCzUo"
       },
       {
-        "标题": "其他AI vs Siri（第二集）🤖",
+        "标题": "Other Ai Vs Siri (Part 2) 🤖",
         "内容": "",
         "日期": "2026-01-20T16:11:16Z",
         "来源": "YouTube",
+        "板块": "YouTube热点",
         "链接": "https://youtube.com/watch?v=ZOvJbeYRnjY"
       },
       {
-        "标题": "AI展示BTS巴士 #短视频",
-        "内容": "与AI生成角色互动创作的娱乐内容，全部视觉效果均由AI生成。",
-        "日期": "2026-01-20T09:05:25Z",
-        "来源": "YouTube",
-        "链接": "https://youtube.com/watch?v=dvnOEZ5Dlz8"
-      }
-    ],
-    "明星公司动态": [
-      {
-        "标题": "OpenAI将推出ChatGPT广告测试",
-        "内容": "未来数周开始在免费版测试广告，承诺不影响回答质量且严格区隔商业内容，付费用户无广告。",
-        "日期": "2026-01-16T18:00:12Z",
+        "标题": "Compute is the scarcest resource in AI, and demand keeps growing.\n\nOn the OpenAI Podcast, our CFO Sa",
+        "内容": "Compute is the scarcest resource in AI, and demand keeps growing.\n\nOn the OpenAI Podcast, our CFO Sarah Friar and Khosla Ventures founder @vkhosla talk to host @AndrewMayne about the demand for compute and how we get the benefits of AI to more people. https://t.co/9QJLBoPssm",
+        "日期": "Tue Jan 20 23:29:09 +0000 2026",
         "来源": "OpenAI",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/OpenAI/status/2013755708110709135"
+      },
+      {
+        "标题": "We’re rolling out age prediction on ChatGPT to help determine when an account likely belongs to some",
+        "内容": "We’re rolling out age prediction on ChatGPT to help determine when an account likely belongs to someone under 18, so we can apply the right experience and safeguards for teens.\n\nAdults who are incorrectly placed in the teen experience can confirm their age in Settings > Account.\n\nRolling out globally now. EU to follow in the coming weeks.\n\nhttps://t.co/0mMO42pNdg",
+        "日期": "Tue Jan 20 19:01:03 +0000 2026",
+        "来源": "OpenAI",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/OpenAI/status/2013688237772898532"
+      },
+      {
+        "标题": "(转发) I have great respect for Elon, but the way he cherry-picked from my personal journal is beyond ",
+        "内容": "(转发) I have great respect for Elon, but the way he cherry-picked from my personal journal is beyond dishonest.\n\nElon and we had agreed a for-profit was the next step for OpenAI's mission.\n\nThe context shows these snippets were actually about whether to accept Elon's draconian terms. https://t.co/7qYfc3sol1",
+        "日期": "Sat Jan 17 17:39:34 +0000 2026",
+        "来源": "OpenAI",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/OpenAI/status/2012580569972936778"
+      },
+      {
+        "标题": "(转发) lots more here: https://t.co/C0DMZdr8ej\n\nelon is cherry-picking things to make greg look bad, b",
+        "内容": "(转发) lots more here: https://t.co/C0DMZdr8ej\n\nelon is cherry-picking things to make greg look bad, but the full story is that elon was pushing for a new structure, and greg and ilya spent a lot of time trying to figure out if they could meet his demands.",
+        "日期": "Fri Jan 16 22:34:22 +0000 2026",
+        "来源": "OpenAI",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/OpenAI/status/2012292369144500689"
+      },
+      {
+        "标题": "In the coming weeks, we plan to start testing ads in ChatGPT free and Go tiers.\n\nWe’re sharing our p",
+        "内容": "In the coming weeks, we plan to start testing ads in ChatGPT free and Go tiers.\n\nWe’re sharing our principles early on how we’ll approach ads–guided by putting user trust and transparency first as we work to make AI accessible to everyone.\n\nWhat matters most:\n- Responses in ChatGPT will not be influenced by ads.\n\n- Ads are always separate and clearly labeled.\n\n- Your conversations are private from advertisers.\n\n- Plus, Pro, Business, and Enterprise tiers will not have ads.",
+        "日期": "Fri Jan 16 18:00:12 +0000 2026",
+        "来源": "OpenAI",
+        "板块": "明星公司动态",
         "链接": "https://x.com/OpenAI/status/2012223373489614951"
       },
       {
-        "标题": "谷歌发布55语言翻译模型TranslateGemma",
-        "内容": "推出4B至27B参数规模的开源翻译模型系列，在效率与质量间取得平衡。",
-        "日期": "2026-01-15T17:09:35Z",
+        "标题": "(转发) Our new @GoogleDeepMind paper studies novel activation probe architectures for classifying real",
+        "内容": "(转发) Our new @GoogleDeepMind paper studies novel activation probe architectures for classifying real-world misuse risks.\n\nOur research has informed live deployments of probes in Gemini. 🧵 https://t.co/VekT2JKZYG",
+        "日期": "Mon Jan 19 17:08:02 +0000 2026",
         "来源": "GoogleDeepMind",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/GoogleDeepMind/status/2013297408298336568"
+      },
+      {
+        "标题": "We’re releasing TranslateGemma, a new family of open translation models with support for 55 language",
+        "内容": "We’re releasing TranslateGemma, a new family of open translation models with support for 55 languages. 🌐\n\nAvailable in 4B, 12B, and 27B parameter sizes – they’re designed for efficiency without sacrificing quality. https://t.co/SRJzCOAKyG",
+        "日期": "Thu Jan 15 17:09:35 +0000 2026",
+        "来源": "GoogleDeepMind",
+        "板块": "明星公司动态",
         "链接": "https://x.com/GoogleDeepMind/status/2011848249850630363"
       },
       {
-        "标题": "DeepMind用Gemini证明代数几何新定理",
-        "内容": "数学专用版AI协助完成学术突破，成果发表于合作研究论文。",
-        "日期": "2026-01-14T16:43:17Z",
+        "标题": "(转发) Introducing a more personal Gemini, designed for you.\n\nPersonal Intelligence draws insights fro",
+        "内容": "(转发) Introducing a more personal Gemini, designed for you.\n\nPersonal Intelligence draws insights from across your @Google apps to provide truly customized responses from Gemini. Learn all about it below. 🧵",
+        "日期": "Wed Jan 14 19:08:45 +0000 2026",
         "来源": "GoogleDeepMind",
+        "板块": "明星公司动态",
+        "链接": "https://x.com/GoogleDeepMind/status/2011515851313459429"
+      },
+      {
+        "标题": "(转发) New paper out today, proving a novel theorem in algebraic geometry with an internal math-specia",
+        "内容": "(转发) New paper out today, proving a novel theorem in algebraic geometry with an internal math-specialized version of Gemini. This was a collaboration between @GoogleDeepMind (Professor Freddie Manners and @GSalafatinos, hosted by the Blueshift team) and Professors Jim Bryan, Balazs Elek, and Ravi Vakil.\n\nhttps://t.co/T2WTqkKa9J",
+        "日期": "Wed Jan 14 16:43:17 +0000 2026",
+        "来源": "GoogleDeepMind",
+        "板块": "明星公司动态",
         "链接": "https://x.com/GoogleDeepMind/status/2011479241141997623"
       },
       {
-        "标题": "医疗AI模型MedGemma 1.5发布",
-        "内容": "支持离线运行的轻量化模型，提升医学影像与文本记录处理能力。",
-        "日期": "2026-01-13T21:06:50Z",
+        "标题": "(转发) Announcing MedGemma 1.5 🩺\n\nThis updated open model from @GoogleResearch is small enough to run ",
+        "内容": "(转发) Announcing MedGemma 1.5 🩺\n\nThis updated open model from @GoogleResearch is small enough to run offline, improves performance on medical imaging use cases, and enhances core capabilities for text, medical records and 2D images.\n\nhttps://t.co/kVdvdLZapm",
+        "日期": "Tue Jan 13 21:06:50 +0000 2026",
         "来源": "GoogleDeepMind",
+        "板块": "明星公司动态",
         "链接": "https://x.com/GoogleDeepMind/status/2011183180725043288"
+      },
+      {
+        "标题": "microsoft/agent-lightning",
+        "内容": "The absolute trainer to light up AI agents.",
+        "日期": "2026-01-21T03:51:00.949921",
+        "来源": "GitHub",
+        "板块": "GitHub热门",
+        "链接": "https://github.com/microsoft/agent-lightning",
+        "额外": "⭐ 98 stars today | 🔥 今日 0 | 💻 Python"
+      },
+      {
+        "标题": "iOfficeAI/AionUi",
+        "内容": "Free, local, open-source Cowork for Gemini CLI, Claude Code, Codex, Opencode, Qwen Code, Goose Cli, Auggie, and more | 🌟 Star if you like it!",
+        "日期": "2026-01-21T03:51:00.949921",
+        "来源": "GitHub",
+        "板块": "GitHub热门",
+        "链接": "https://github.com/iOfficeAI/AionUi",
+        "额外": "⭐ 970 stars today | 🔥 今日 0 | 💻 TypeScript"
+      },
+      {
+        "标题": "google/langextract",
+        "内容": "A Python library for extracting structured information from unstructured text using LLMs with precise source grounding and interactive visualization.",
+        "日期": "2026-01-21T03:51:00.949921",
+        "来源": "GitHub",
+        "板块": "GitHub热门",
+        "链接": "https://github.com/google/langextract",
+        "额外": "⭐ 552 stars today | 🔥 今日 0 | 💻 Python"
       }
-    ],
-    "油管博主": [],
-    "Twitter热点": [],
-    "TikTok热点": []
-  },
-  "analysis": {
-    "summary": "今日焦点：特斯拉转向太空AI芯片研发，ChatGPT推出青少年保护机制，比亚迪电动车战略受关注；AI领域融资活跃，医疗与翻译模型持续迭代；YouTube创作者探索AI视频制作新形式。",
-    "trends": [
-      "企业级AI芯片竞争扩展至太空领域",
-      "内容平台加强未成年保护措施",
-      "开源翻译模型支持语言数量突破"
     ]
   }
 }
