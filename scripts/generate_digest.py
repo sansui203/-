@@ -280,36 +280,54 @@ class AIDigestGenerator:
     # ==================== GitHub（无需 API）====================
     
     def fetch_github_trending(self):
-        """获取 GitHub 热门项目"""
-        print("\n⭐ GitHub 热门...")
+        """获取 GitHub 官方热门榜单"""
+        print("\n⭐ GitHub Trending...")
         
         try:
-            # 使用第三方 API
-            r = requests.get("https://api.gitterapp.com/repositories", params={
-                "language": "",
-                "since": "daily"
-            }, timeout=30)
-            repos = r.json()
+            from bs4 import BeautifulSoup
+            
+            # 抓取官方榜单
+            r = requests.get("https://github.com/trending", 
+                headers={"User-Agent": "Mozilla/5.0"}, 
+                timeout=30)
+            soup = BeautifulSoup(r.text, 'html.parser')
             
             count = 0
-            for repo in repos[:15]:
-                # 只要 AI 相关或高热度项目
-                desc = (repo.get("description") or "").lower()
-                name = repo.get("name", "").lower()
-                stars_today = repo.get("starsSince", 0)
+            for article in soup.select('article.Box-row')[:20]:
+                # 项目名
+                h2 = article.select_one('h2 a')
+                if not h2:
+                    continue
+                repo_name = h2.get('href', '').strip('/')
                 
-                if "ai" in desc or "ai" in name or stars_today > 100:
+                # 描述
+                desc_elem = article.select_one('p')
+                desc = desc_elem.text.strip() if desc_elem else ""
+                
+                # 星标
+                stars_elem = article.select('span.d-inline-block.float-sm-right')
+                total_stars = stars_elem[0].text.strip() if len(stars_elem) > 0 else "0"
+                today_stars = stars_elem[1].text.strip() if len(stars_elem) > 1 else "0"
+                
+                # 语言
+                lang_elem = article.select_one('span[itemprop="programmingLanguage"]')
+                lang = lang_elem.text.strip() if lang_elem else ""
+                
+                # AI 相关过滤
+                check_text = (repo_name + desc + lang).lower()
+                if any(kw in check_text for kw in ['ai', 'llm', 'gpt', 'machine', 'learning', 'deep', 'neural', 'model', 'agent']):
                     self.all_items.append({
-                        "标题": f"{repo.get('author', '')}/{repo.get('name', '')}",
-                        "内容": repo.get("description", "")[:200],
+                        "标题": repo_name,
+                        "内容": desc[:200],
                         "日期": self.today.isoformat(),
                         "来源": "GitHub",
                         "板块": "GitHub热门",
-                        "链接": repo.get("url", ""),
-                        "额外": f"⭐ {repo.get('stars', 0):,} | 🔥 今日+{stars_today}"
+                        "链接": f"https://github.com/{repo_name}",
+                        "额外": f"⭐ {total_stars} | 🔥 今日 {today_stars} | 💻 {lang}"
                     })
                     count += 1
-            print(f"  ✅ {count} 条")
+            
+            print(f"  ✅ {count} 条 (AI相关)")
         except Exception as e:
             print(f"  ❌ {e}")
 
