@@ -45,9 +45,9 @@ TEMPLATE = """<!DOCTYPE html>
         </header>
 
         {% if analysis %}
-        <div class="summary">
-            <h2>📝 今日摘要</h2>
-            <p>{{ analysis.summary }}</p>
+        <div class="summary" style="{% if '⚠️' in analysis.summary or 'AI 处理失败' in analysis.summary %}background: #7f1d1d; border-color: #ef4444;{% endif %}">
+            <h2>{% if '⚠️' in analysis.summary %}⚠️ 错误信息{% else %}📝 今日摘要{% endif %}</h2>
+            <p style="{% if '⚠️' in analysis.summary %}color: #fca5a5; font-weight: bold;{% endif %}">{{ analysis.summary }}</p>
             {% if analysis.trends %}
             <div class="trends">
                 {% for t in analysis.trends %}<span class="trend">{{ t }}</span>{% endfor %}

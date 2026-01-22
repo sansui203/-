@@ -280,54 +280,144 @@ class AIDigestGenerator:
     # ==================== GitHub（无需 API）====================
     
     def fetch_github_trending(self):
-        """获取 GitHub 官方热门榜单"""
+        """获取 GitHub Trending（使用第三方 API）"""
         print("\n⭐ GitHub Trending...")
         
-        try:
-            from bs4 import BeautifulSoup
-            
-            # 抓取官方榜单
-            r = requests.get("https://github.com/trending", 
-                headers={"User-Agent": "Mozilla/5.0"}, 
-                timeout=30)
-            soup = BeautifulSoup(r.text, 'html.parser')
-            
-            count = 0
-            for article in soup.select('article.Box-row')[:20]:
-                # 项目名
-                h2 = article.select_one('h2 a')
-                if not h2:
-                    continue
-                repo_name = h2.get('href', '').strip('/')
+        periods = [
+            ("daily", "今日热门"),
+            ("weekly", "本周热门")
+        ]
+        
+        for period, label in periods:
+            try:
+                # 使用 GitHub Trending API
+                r = requests.get(
+                    f"https://api.gitterapp.com/repositories?since={period}",
+                    headers={"User-Agent": "Mozilla/5.0"},
+                    timeout=30
+                )
+                repos = r.json()
                 
-                # 描述
-                desc_elem = article.select_one('p')
-                desc = desc_elem.text.strip() if desc_elem else ""
-                
-                # 星标
-                stars_elem = article.select('span.d-inline-block.float-sm-right')
-                total_stars = stars_elem[0].text.strip() if len(stars_elem) > 0 else "0"
-                today_stars = stars_elem[1].text.strip() if len(stars_elem) > 1 else "0"
-                
-                # 语言
-                lang_elem = article.select_one('span[itemprop="programmingLanguage"]')
-                lang = lang_elem.text.strip() if lang_elem else ""
-                
-                # AI 相关过滤
-                check_text = (repo_name + desc + lang).lower()
-                if any(kw in check_text for kw in ['ai', 'llm', 'gpt', 'machine', 'learning', 'deep', 'neural', 'model', 'agent']):
+                count = 0
+                for repo in repos[:15]:
+                    author = repo.get("author", "")
+                    name = repo.get("name", "")
+                    desc = repo.get("description", "")
+                    lang = repo.get("language", "Unknown")
+                    stars = repo.get("stars", 0)
+                    stars_today = repo.get("starsSince", 0)
+                    
                     self.all_items.append({
-                        "标题": repo_name,
+                        "标题": f"{author}/{name}",
                         "内容": desc[:200],
                         "日期": self.today.isoformat(),
-                        "来源": "GitHub",
-                        "板块": "GitHub热门",
-                        "链接": f"https://github.com/{repo_name}",
-                        "额外": f"⭐ {total_stars} | 🔥 今日 {today_stars} | 💻 {lang}"
+                        "来源": f"GitHub {label}",
+                        "板块": f"GitHub{label}",
+                        "链接": repo.get("url", f"https://github.com/{author}/{name}"),
+                        "额外": f"⭐ {stars:,} | 🔥 {period} +{stars_today:,} | 💻 {lang}"
                     })
                     count += 1
+                
+                print(f"  ✅ {label}: {count} 条")
+            except Exception as e:
+                print(f"  ❌ {label}: {e}")
+
+    # ==================== HuggingFace（无需 API）====================
+    
+    def fetch_huggingface_trending(self):
+        """获取 HuggingFace 热门模型"""
+        print("\n🤗 HuggingFace Trending...")
+        
+        try:
+            # 使用 HuggingFace API
+            r = requests.get(
+                "https://huggingface.co/api/models",
+                params={
+                    "sort": "trending",
+                    "direction": -1,
+                    "limit": 20
+                },
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=30
+            )
+            models = r.json()
             
-            print(f"  ✅ {count} 条 (AI相关)")
+            count = 0
+            for model in models[:15]:
+                model_id = model.get("id", "")
+                if not model_id:
+                    continue
+                    
+                downloads = model.get("downloads", 0)
+                likes = model.get("likes", 0)
+                
+                self.all_items.append({
+                    "标题": model_id,
+                    "内容": model.get("description", "")[:150] or f"Pipeline: {model.get('pipeline_tag', 'N/A')}",
+                    "日期": self.today.isoformat(),
+                    "来源": "HuggingFace",
+                    "板块": "HuggingFace热门",
+                    "链接": f"https://huggingface.co/{model_id}",
+                    "额外": f"📥 {downloads:,} 下载 | ❤️ {likes} 点赞"
+                })
+                count += 1
+            
+            print(f"  ✅ {count} 条")
+        except Exception as e:
+            print(f"  ❌ {e}")
+    
+    # ==================== ModelScope（无需 API）====================
+    
+    def fetch_modelscope_trending(self):
+        """获取 ModelScope 热门模型"""
+        print("\n🔮 ModelScope Trending...")
+        
+        try:
+            # ModelScope API (多试几个接口)
+            endpoints = [
+                ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20, "SortBy": "gmtDownload7d"}),
+                ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20})
+            ]
+            
+            for url, params in endpoints:
+                try:
+                    r = requests.get(url, params=params, 
+                        headers={"User-Agent": "Mozilla/5.0"},
+                        timeout=30)
+                    data = r.json()
+                    
+                    models_data = data.get("Data", []) or data.get("data", [])
+                    if not models_data:
+                        continue
+                    
+                    count = 0
+                    for model in models_data[:15]:
+                        model_name = model.get("Path") or model.get("Name") or model.get("Id", "")
+                        if not model_name:
+                            continue
+                            
+                        desc = model.get("ChineseDescription") or model.get("Description", "")
+                        downloads = model.get("Downloads", 0) or model.get("DownloadCount", 0)
+                        
+                        self.all_items.append({
+                            "标题": model_name,
+                            "内容": desc[:150] if desc else "ModelScope 热门模型",
+                            "日期": self.today.isoformat(),
+                            "来源": "ModelScope",
+                            "板块": "ModelScope热门",
+                            "链接": f"https://modelscope.cn/models/{model_name}",
+                            "额外": f"📥 {downloads:,} 下载"
+                        })
+                        count += 1
+                    
+                    print(f"  ✅ {count} 条")
+                    return  # 成功就退出
+                    
+                except Exception as e:
+                    continue
+            
+            print("  ⚠️ 所有接口均失败")
+            
         except Exception as e:
             print(f"  ❌ {e}")
 
@@ -336,8 +426,22 @@ class AIDigestGenerator:
     def ai_process(self):
         """AI 翻译和摘要"""
         if not self.siliconflow_key:
-            print("\n❌ 未配置 SILICONFLOW_API_KEY，无法进行 AI 处理")
-            return None
+            error_msg = "❌ 未配置 SILICONFLOW_API_KEY，无法进行 AI 处理"
+            print(f"\n{error_msg}")
+            
+            # 保存错误信息
+            fallback = {
+                "date": self.today_str,
+                "error": error_msg,
+                "categories": {"原始数据": self.all_items},
+                "analysis": {
+                    "summary": "⚠️ 未配置 API Key，请在 GitHub Secrets 中添加 SILICONFLOW_API_KEY",
+                    "trends": []
+                }
+            }
+            (self.data_dir / "latest.json").write_text(
+                json.dumps(fallback, ensure_ascii=False, indent=2), encoding="utf-8")
+            return fallback
         
         if not self.all_items:
             print("\n⚠️ 没有数据")
@@ -347,16 +451,16 @@ class AIDigestGenerator:
         
         prompt = f"""处理以下AI资讯，输出JSON：
 
-{json.dumps(self.all_items[:50], ensure_ascii=False)}
+{json.dumps(self.all_items[:100], ensure_ascii=False)}
 
 要求：
 1. 英文翻译成中文
 2. 长内容生成60-80字摘要  
 3. 按板块分组
-4. GitHub项目保留"额外"字段（星标数据）
+4. 保留"额外"字段（星标、下载量等数据）
 
 输出格式：
-{{"date":"{self.today_str}","categories":{{"新闻":[{{"标题":"","内容":"","日期":"","来源":"","链接":"","额外":""}}],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1"]}}}}
+{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[],"ModelScope热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
 
 只输出JSON。"""
 
@@ -390,9 +494,20 @@ class AIDigestGenerator:
             return result
             
         except Exception as e:
-            print(f"  ❌ {e}")
-            # 失败时保存原始数据
-            fallback = {"date": self.today_str, "categories": {"原始数据": self.all_items}}
+            import traceback
+            error_msg = f"AI 处理失败: {str(e)}\n{traceback.format_exc()}"
+            print(f"  ❌ {error_msg}")
+            
+            # 失败时保存原始数据，并附带错误信息
+            fallback = {
+                "date": self.today_str,
+                "error": error_msg,
+                "categories": {"原始数据": self.all_items},
+                "analysis": {
+                    "summary": f"⚠️ AI 处理失败，显示原始数据。错误：{str(e)}",
+                    "trends": []
+                }
+            }
             (self.data_dir / "latest.json").write_text(
                 json.dumps(fallback, ensure_ascii=False, indent=2), encoding="utf-8")
             return fallback
@@ -410,6 +525,8 @@ class AIDigestGenerator:
         self.safe_fetch("Twitter账号", self.fetch_twitter_accounts)
         self.safe_fetch("TikTok", self.fetch_tiktok)
         self.safe_fetch("GitHub热门", self.fetch_github_trending)
+        self.safe_fetch("HuggingFace", self.fetch_huggingface_trending)
+        self.safe_fetch("ModelScope", self.fetch_modelscope_trending)
         
         print(f"\n📦 共采集 {len(self.all_items)} 条")
         
