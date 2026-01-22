@@ -292,20 +292,22 @@ class AIDigestGenerator:
             count = 0
             
             # 方案1: 尝试多个 Trending API
-            # GitHub Search API 备用方案：根据时间范围搜索高星项目
+            # GitHub Search API 备用方案：查询最近活跃的高星项目
             if period == "daily":
-                # 今日：降低要求到 100 星
+                # 今日：最近 1 天更新的项目，star > 1000
                 date_range = self.yesterday.strftime('%Y-%m-%d')
-                stars_req = "100"
+                stars_req = "1000"
+                search_field = "pushed"  # 使用 pushed（最近更新）而不是 created
             else:
-                # 本周：500 星
+                # 本周：最近 7 天更新的项目，star > 500
                 date_range = (self.today - timedelta(days=7)).strftime('%Y-%m-%d')
                 stars_req = "500"
+                search_field = "pushed"
             
             apis = [
                 f"https://api.gitterapp.com/repositories?since={period}",
                 f"https://gh-trending-api.herokuapp.com/repositories?since={period}",
-                f"https://api.github.com/search/repositories?q=stars:>{stars_req}+created:>{date_range}&sort=stars&order=desc&per_page=8",
+                f"https://api.github.com/search/repositories?q=stars:>{stars_req}+{search_field}:>{date_range}&sort=stars&order=desc&per_page=8",
             ]
             
             for api_url in apis:
