@@ -293,13 +293,19 @@ class AIDigestGenerator:
             
             # 方案1: 尝试多个 Trending API
             # GitHub Search API 备用方案：根据时间范围搜索高星项目
-            date_range = self.yesterday.strftime('%Y-%m-%d') if period == "daily" else (self.today - timedelta(days=7)).strftime('%Y-%m-%d')
+            if period == "daily":
+                # 今日：降低要求到 100 星
+                date_range = self.yesterday.strftime('%Y-%m-%d')
+                stars_req = "100"
+            else:
+                # 本周：500 星
+                date_range = (self.today - timedelta(days=7)).strftime('%Y-%m-%d')
+                stars_req = "500"
             
             apis = [
                 f"https://api.gitterapp.com/repositories?since={period}",
                 f"https://gh-trending-api.herokuapp.com/repositories?since={period}",
-                f"https://trending.ly/repos?period={period}",
-                f"https://api.github.com/search/repositories?q=stars:>500+created:>{date_range}&sort=stars&order=desc&per_page=8",
+                f"https://api.github.com/search/repositories?q=stars:>{stars_req}+created:>{date_range}&sort=stars&order=desc&per_page=8",
             ]
             
             for api_url in apis:
@@ -307,6 +313,7 @@ class AIDigestGenerator:
                     headers = {"User-Agent": "Mozilla/5.0"}
                     r = requests.get(api_url, headers=headers, timeout=30)
                     if r.status_code != 200:
+                        print(f"      ⚠️ {api_url[:50]}... -> HTTP {r.status_code}")
                         continue
                     
                     data = r.json()
@@ -318,6 +325,7 @@ class AIDigestGenerator:
                         repos = data if isinstance(data, list) else []
                     
                     if not repos:
+                        print(f"      ⚠️ {api_url[:50]}... -> 返回空数据")
                         continue
                     
                     for repo in repos[:8]:
@@ -355,10 +363,11 @@ class AIDigestGenerator:
                         count += 1
                     
                     if count > 0:
-                        print(f"  ✅ {label}: {count} 条")
+                        print(f"  ✅ {label}: {count} 条（使用 {api_url.split('/')[2]}）")
                         break  # 成功就不尝试下一个 API
                         
                 except Exception as e:
+                    print(f"      ❌ {api_url[:50]}... -> {type(e).__name__}: {str(e)[:100]}")
                     continue
             
             if count == 0:
@@ -371,12 +380,11 @@ class AIDigestGenerator:
         print("\n🤗 HuggingFace Trending...")
         
         try:
-            # 使用 HuggingFace API
+            # 使用 HuggingFace API（修正参数）
             r = requests.get(
                 "https://huggingface.co/api/models",
                 params={
-                    "sort": "trending",
-                    "direction": -1,
+                    "sort": "trending",  # 或 "downloads", "likes"
                     "limit": 10
                 },
                 headers={"User-Agent": "Mozilla/5.0"},
@@ -384,7 +392,7 @@ class AIDigestGenerator:
             )
             
             if r.status_code != 200:
-                print(f"  ❌ HTTP {r.status_code}")
+                print(f"  ❌ HTTP {r.status_code}: {r.text[:200]}")
                 return
                 
             models = r.json()
@@ -434,11 +442,11 @@ class AIDigestGenerator:
         """获取 ModelScope 热门模型（尝试多个接口）"""
         print("\n🔮 ModelScope Trending...")
         
-        # 多个备用接口
+        # 多个备用接口（更新路径）
         endpoints = [
-            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10, "SortBy": "gmtDownload"}),
-            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10}),
-            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10}),
+            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10, "SortBy": "gmtDownload"}),
+            ("https://modelscope.cn/api/v1/models/list", {"PageNumber": 1, "PageSize": 10}),
+            ("https://www.modelscope.cn/api/v1/studio/models", {"PageNumber": 1, "PageSize": 10}),
         ]
         
         for url, params in endpoints:
@@ -454,6 +462,7 @@ class AIDigestGenerator:
                 )
                 
                 if r.status_code != 200:
+                    print(f"      ⚠️ {url.split('/')[2]} -> HTTP {r.status_code}")
                     continue
                 
                 data = r.json()
@@ -467,6 +476,7 @@ class AIDigestGenerator:
                 )
                 
                 if not models_data or not isinstance(models_data, list):
+                    print(f"      ⚠️ {url.split('/')[2]} -> 返回数据格式错误或为空")
                     continue
                 
                 count = 0
@@ -506,10 +516,11 @@ class AIDigestGenerator:
                     count += 1
                 
                 if count > 0:
-                    print(f"  ✅ {count} 条")
+                    print(f"  ✅ {count} 条（使用 {url.split('/')[2]}）")
                     return  # 成功就退出
                     
             except Exception as e:
+                print(f"      ❌ {url.split('/')[2]} -> {type(e).__name__}: {str(e)[:100]}")
                 continue
         
         print("  ⚠️ 所有接口均失败（ModelScope 可能需要登录或在国外访问受限）")
