@@ -449,20 +449,21 @@ class AIDigestGenerator:
         
         print(f"\n🤖 AI 处理 ({self.model})...")
         
-        prompt = f"""处理以下AI资讯，输出JSON：
+        prompt = f"""You are a JSON formatter. Process the following AI news data and return ONLY valid JSON, no extra text.
 
+Input data:
 {json.dumps(self.all_items[:100], ensure_ascii=False)}
 
-要求：
-1. 英文翻译成中文
-2. 长内容生成60-80字摘要  
-3. 按板块分组
-4. 保留"额外"字段（星标、下载量等数据）
+Requirements:
+1. Translate English to Chinese
+2. Summarize long content to 60-80 Chinese characters
+3. Group by category
+4. Keep "额外" field (stars, downloads, etc.)
 
-输出格式：
+Output format (ONLY this JSON, nothing else):
 {{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[],"ModelScope热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
 
-只输出JSON。"""
+CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations."""
 
         try:
             from openai import OpenAI
@@ -473,15 +474,52 @@ class AIDigestGenerator:
             
             resp = client.chat.completions.create(
                 model=self.model,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=8000
+                messages=[
+                    {"role": "system", "content": "You are a JSON formatter. Always return valid JSON only, no extra text."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=8000,
+                temperature=0.1  # 降低温度使输出更稳定
             )
             
-            content = resp.choices[0].message.content
-            if "```" in content:
-                content = content.split("```")[1].replace("json", "").strip()
+            content = resp.choices[0].message.content.strip()
             
-            result = json.loads(content)
+            # 多种方式提取 JSON
+            result = None
+            errors = []
+            
+            # 方法1: 直接解析
+            try:
+                result = json.loads(content)
+            except Exception as e1:
+                errors.append(f"直接解析失败: {e1}")
+                
+                # 方法2: 移除 markdown 代码块
+                try:
+                    if "```" in content:
+                        content = content.split("```")[1]
+                        content = content.replace("json", "").replace("JSON", "").strip()
+                    result = json.loads(content)
+                except Exception as e2:
+                    errors.append(f"移除代码块后失败: {e2}")
+                    
+                    # 方法3: 提取第一个 { 到最后一个 }
+                    try:
+                        start = content.find("{")
+                        end = content.rfind("}") + 1
+                        if start >= 0 and end > start:
+                            content = content[start:end]
+                        result = json.loads(content)
+                    except Exception as e3:
+                        errors.append(f"提取括号后失败: {e3}")
+                        
+                        # 保存原始内容以便调试
+                        debug_file = self.data_dir / f"debug_response_{self.today_str}.txt"
+                        debug_file.write_text(f"原始返回:\n{resp.choices[0].message.content}\n\n错误:\n" + "\n".join(errors), encoding="utf-8")
+                        raise Exception(f"所有JSON解析方法均失败。详见 {debug_file}")
+            
+            if not result:
+                raise Exception("无法解析 AI 返回的 JSON")
             
             # 保存
             (self.data_dir / f"digest_{self.today_str}.json").write_text(
