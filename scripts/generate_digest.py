@@ -280,7 +280,7 @@ class AIDigestGenerator:
     # ==================== GitHub（无需 API）====================
     
     def fetch_github_trending(self):
-        """获取 GitHub Trending（使用第三方 API）"""
+        """获取 GitHub Trending（使用多个备用 API）"""
         print("\n⭐ GitHub Trending...")
         
         periods = [
@@ -289,38 +289,54 @@ class AIDigestGenerator:
         ]
         
         for period, label in periods:
-            try:
-                # 使用 GitHub Trending API
-                r = requests.get(
-                    f"https://api.gitterapp.com/repositories?since={period}",
-                    headers={"User-Agent": "Mozilla/5.0"},
-                    timeout=30
-                )
-                repos = r.json()
-                
-                count = 0
-                for repo in repos[:15]:
-                    author = repo.get("author", "")
-                    name = repo.get("name", "")
-                    desc = repo.get("description", "")
-                    lang = repo.get("language", "Unknown")
-                    stars = repo.get("stars", 0)
-                    stars_today = repo.get("starsSince", 0)
+            count = 0
+            # 尝试多个 API
+            apis = [
+                f"https://api.gitterapp.com/repositories?since={period}",
+                f"https://gh-trending-api.herokuapp.com/repositories?since={period}",
+            ]
+            
+            for api_url in apis:
+                try:
+                    r = requests.get(api_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+                    if r.status_code != 200:
+                        continue
                     
-                    self.all_items.append({
-                        "标题": f"{author}/{name}",
-                        "内容": desc[:200],
-                        "日期": self.today.isoformat(),
-                        "来源": f"GitHub {label}",
-                        "板块": f"GitHub{label}",
-                        "链接": repo.get("url", f"https://github.com/{author}/{name}"),
-                        "额外": f"⭐ {stars:,} | 🔥 {period} +{stars_today:,} | 💻 {lang}"
-                    })
-                    count += 1
-                
-                print(f"  ✅ {label}: {count} 条")
-            except Exception as e:
-                print(f"  ❌ {label}: {e}")
+                    repos = r.json()
+                    if not repos or not isinstance(repos, list):
+                        continue
+                    
+                    for repo in repos[:15]:
+                        author = repo.get("author", "") or repo.get("username", "")
+                        name = repo.get("name", "") or repo.get("reponame", "")
+                        if not author or not name:
+                            continue
+                            
+                        desc = repo.get("description", "") or ""
+                        lang = repo.get("language", "") or repo.get("programmingLanguage", "") or "Unknown"
+                        stars = repo.get("stars", 0) or repo.get("totalStars", 0)
+                        stars_today = repo.get("starsSince", 0) or repo.get("starsToday", 0)
+                        
+                        self.all_items.append({
+                            "标题": f"{author}/{name}",
+                            "内容": desc[:200] if desc else f"{lang} 项目",
+                            "日期": self.today.isoformat(),
+                            "来源": f"GitHub {label}",
+                            "板块": f"GitHub{label}",
+                            "链接": repo.get("url", f"https://github.com/{author}/{name}"),
+                            "额外": f"⭐ {stars:,} | 🔥 +{stars_today:,} | 💻 {lang}"
+                        })
+                        count += 1
+                    
+                    if count > 0:
+                        print(f"  ✅ {label}: {count} 条")
+                        break  # 成功就不尝试下一个 API
+                        
+                except Exception as e:
+                    continue
+            
+            if count == 0:
+                print(f"  ⚠️ {label}: 所有 API 均失败")
 
     # ==================== HuggingFace（无需 API）====================
     
@@ -340,20 +356,39 @@ class AIDigestGenerator:
                 headers={"User-Agent": "Mozilla/5.0"},
                 timeout=30
             )
+            
+            if r.status_code != 200:
+                print(f"  ❌ HTTP {r.status_code}")
+                return
+                
             models = r.json()
+            if not isinstance(models, list):
+                print(f"  ❌ 返回格式错误")
+                return
             
             count = 0
             for model in models[:15]:
-                model_id = model.get("id", "")
+                if not isinstance(model, dict):
+                    continue
+                    
+                model_id = model.get("id", "") or model.get("modelId", "")
                 if not model_id:
                     continue
                     
-                downloads = model.get("downloads", 0)
-                likes = model.get("likes", 0)
+                downloads = model.get("downloads", 0) or 0
+                likes = model.get("likes", 0) or 0
+                
+                # 安全处理描述字段
+                desc = model.get("description") or ""
+                if desc and isinstance(desc, str):
+                    desc = desc[:150]
+                else:
+                    pipeline = model.get("pipeline_tag", "N/A")
+                    desc = f"Pipeline: {pipeline}"
                 
                 self.all_items.append({
                     "标题": model_id,
-                    "内容": model.get("description", "")[:150] or f"Pipeline: {model.get('pipeline_tag', 'N/A')}",
+                    "内容": desc,
                     "日期": self.today.isoformat(),
                     "来源": "HuggingFace",
                     "板块": "HuggingFace热门",
@@ -364,62 +399,94 @@ class AIDigestGenerator:
             
             print(f"  ✅ {count} 条")
         except Exception as e:
-            print(f"  ❌ {e}")
+            import traceback
+            print(f"  ❌ {e}\n{traceback.format_exc()}")
     
     # ==================== ModelScope（无需 API）====================
     
     def fetch_modelscope_trending(self):
-        """获取 ModelScope 热门模型"""
+        """获取 ModelScope 热门模型（尝试多个接口）"""
         print("\n🔮 ModelScope Trending...")
         
-        try:
-            # ModelScope API (多试几个接口)
-            endpoints = [
-                ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20, "SortBy": "gmtDownload7d"}),
-                ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20})
-            ]
-            
-            for url, params in endpoints:
-                try:
-                    r = requests.get(url, params=params, 
-                        headers={"User-Agent": "Mozilla/5.0"},
-                        timeout=30)
-                    data = r.json()
-                    
-                    models_data = data.get("Data", []) or data.get("data", [])
-                    if not models_data:
+        # 多个备用接口
+        endpoints = [
+            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20, "SortBy": "gmtDownload"}),
+            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20}),
+            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20}),
+        ]
+        
+        for url, params in endpoints:
+            try:
+                r = requests.get(
+                    url, 
+                    params=params, 
+                    headers={
+                        "User-Agent": "Mozilla/5.0",
+                        "Referer": "https://modelscope.cn/"
+                    },
+                    timeout=30
+                )
+                
+                if r.status_code != 200:
+                    continue
+                
+                data = r.json()
+                
+                # 尝试多种数据结构
+                models_data = (
+                    data.get("Data") or 
+                    data.get("data") or 
+                    data.get("models") or 
+                    []
+                )
+                
+                if not models_data or not isinstance(models_data, list):
+                    continue
+                
+                count = 0
+                for model in models_data[:15]:
+                    if not isinstance(model, dict):
                         continue
                     
-                    count = 0
-                    for model in models_data[:15]:
-                        model_name = model.get("Path") or model.get("Name") or model.get("Id", "")
-                        if not model_name:
-                            continue
-                            
-                        desc = model.get("ChineseDescription") or model.get("Description", "")
-                        downloads = model.get("Downloads", 0) or model.get("DownloadCount", 0)
-                        
-                        self.all_items.append({
-                            "标题": model_name,
-                            "内容": desc[:150] if desc else "ModelScope 热门模型",
-                            "日期": self.today.isoformat(),
-                            "来源": "ModelScope",
-                            "板块": "ModelScope热门",
-                            "链接": f"https://modelscope.cn/models/{model_name}",
-                            "额外": f"📥 {downloads:,} 下载"
-                        })
-                        count += 1
+                    # 多种字段名尝试
+                    model_name = (
+                        model.get("Path") or 
+                        model.get("Name") or 
+                        model.get("Id") or 
+                        model.get("ModelId") or
+                        ""
+                    )
                     
+                    if not model_name:
+                        continue
+                    
+                    desc = model.get("ChineseDescription") or model.get("Description", "")
+                    if desc and isinstance(desc, str):
+                        desc = desc[:150]
+                    else:
+                        desc = "ModelScope 热门模型"
+                    
+                    downloads = model.get("Downloads", 0) or model.get("DownloadCount", 0) or 0
+                    
+                    self.all_items.append({
+                        "标题": model_name,
+                        "内容": desc,
+                        "日期": self.today.isoformat(),
+                        "来源": "ModelScope",
+                        "板块": "ModelScope热门",
+                        "链接": f"https://modelscope.cn/models/{model_name}",
+                        "额外": f"📥 {downloads:,} 下载"
+                    })
+                    count += 1
+                
+                if count > 0:
                     print(f"  ✅ {count} 条")
                     return  # 成功就退出
                     
-                except Exception as e:
-                    continue
-            
-            print("  ⚠️ 所有接口均失败")
-            
-        except Exception as e:
-            print(f"  ❌ {e}")
+            except Exception as e:
+                continue
+        
+        print("  ⚠️ 所有接口均失败（ModelScope 可能需要登录或在国外访问受限）")
 
     # ==================== AI 处理 ====================
     
