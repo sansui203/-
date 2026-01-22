@@ -376,17 +376,14 @@ class AIDigestGenerator:
     # ==================== HuggingFace（无需 API）====================
     
     def fetch_huggingface_trending(self):
-        """获取 HuggingFace 热门模型"""
+        """获取 HuggingFace 热门模型（已验证可用）"""
         print("\n🤗 HuggingFace Trending...")
         
         try:
-            # 使用 HuggingFace API（修正参数）
+            # 使用 HuggingFace 官方 API（实测可用）
             r = requests.get(
                 "https://huggingface.co/api/models",
-                params={
-                    "sort": "trending",  # 或 "downloads", "likes"
-                    "limit": 10
-                },
+                params={"limit": 10},  # 按 trendingScore 默认排序
                 headers={"User-Agent": "Mozilla/5.0"},
                 timeout=30
             )
@@ -405,51 +402,46 @@ class AIDigestGenerator:
                 if not isinstance(model, dict):
                     continue
                     
-                model_id = model.get("id", "") or model.get("modelId", "")
+                model_id = model.get("id", "")
                 if not model_id:
                     continue
                     
                 downloads = model.get("downloads", 0) or 0
                 likes = model.get("likes", 0) or 0
+                trending = model.get("trendingScore", 0) or 0
                 
-                # 安全处理描述字段
-                desc = model.get("description") or ""
-                if desc and isinstance(desc, str):
-                    desc = desc[:150]
-                else:
-                    pipeline = model.get("pipeline_tag", "N/A")
-                    desc = f"Pipeline: {pipeline}"
+                # 获取标签和任务类型
+                tags = model.get("tags", [])
+                task = next((t for t in tags if not t.startswith(("license:", "region:", "arxiv:"))), "模型")
                 
                 self.all_items.append({
                     "标题": model_id,
-                    "内容": desc,
+                    "内容": f"{task} | 热度: {trending}",
                     "日期": self.today.isoformat(),
                     "来源": "HuggingFace",
                     "板块": "HuggingFace热门",
                     "链接": f"https://huggingface.co/{model_id}",
-                    "额外": f"📥 {downloads:,} 下载 | ❤️ {likes} 点赞"
+                    "额外": f"📥 {downloads:,} 下载 | ❤️ {likes} 点赞 | 🔥 热度 {trending}"
                 })
                 count += 1
             
             print(f"  ✅ {count} 条")
         except Exception as e:
-            import traceback
-            print(f"  ❌ {e}\n{traceback.format_exc()}")
+            print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
     
     # ==================== ModelScope（无需 API）====================
     
     def fetch_modelscope_trending(self):
-        """获取 ModelScope 热门模型（尝试多个接口）"""
+        """获取 ModelScope 热门模型（API 已验证失效，暂时跳过）"""
         print("\n🔮 ModelScope Trending...")
-        
-        # 多个备用接口（更新路径）
-        endpoints = [
-            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10, "SortBy": "gmtDownload"}),
-            ("https://modelscope.cn/api/v1/models/list", {"PageNumber": 1, "PageSize": 10}),
-            ("https://www.modelscope.cn/api/v1/studio/models", {"PageNumber": 1, "PageSize": 10}),
-        ]
-        
-        for url, params in endpoints:
+        print("  ⚠️ ModelScope API 已废弃（实测 404），跳过此数据源")
+        # 注：经实测 https://modelscope.cn/api/v1/models 返回 404
+        # ModelScope 可能需要认证或 API 已迁移
+        return
+
+    def _fetch_modelscope_old(self):
+        """旧的 ModelScope 获取代码（已废弃，保留作参考）"""
+        for url, params in [("https://modelscope.cn/api/v1/models", {"PageSize": 10})]:
             try:
                 r = requests.get(
                     url, 
