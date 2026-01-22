@@ -558,7 +558,7 @@ Requirements:
 5. **IMPORTANT: Each category should have AT MOST 5 items (select the most important/popular ones)**
 
 Output format (ONLY this JSON, nothing else):
-{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[],"ModelScope热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
+{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
 
 CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations. Maximum 5 items per category."""
 
