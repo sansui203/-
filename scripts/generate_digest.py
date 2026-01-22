@@ -280,7 +280,7 @@ class AIDigestGenerator:
     # ==================== GitHub（无需 API）====================
     
     def fetch_github_trending(self):
-        """获取 GitHub Trending（使用多个备用 API）"""
+        """获取 GitHub Trending（多个备用方案）"""
         print("\n⭐ GitHub Trending...")
         
         periods = [
@@ -290,31 +290,57 @@ class AIDigestGenerator:
         
         for period, label in periods:
             count = 0
-            # 尝试多个 API
+            
+            # 方案1: 尝试多个 Trending API
+            # GitHub Search API 备用方案：根据时间范围搜索高星项目
+            date_range = self.yesterday.strftime('%Y-%m-%d') if period == "daily" else (self.today - timedelta(days=7)).strftime('%Y-%m-%d')
+            
             apis = [
                 f"https://api.gitterapp.com/repositories?since={period}",
                 f"https://gh-trending-api.herokuapp.com/repositories?since={period}",
+                f"https://trending.ly/repos?period={period}",
+                f"https://api.github.com/search/repositories?q=stars:>500+created:>{date_range}&sort=stars&order=desc&per_page=8",
             ]
             
             for api_url in apis:
                 try:
-                    r = requests.get(api_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+                    headers = {"User-Agent": "Mozilla/5.0"}
+                    r = requests.get(api_url, headers=headers, timeout=30)
                     if r.status_code != 200:
                         continue
                     
-                    repos = r.json()
-                    if not repos or not isinstance(repos, list):
+                    data = r.json()
+                    
+                    # GitHub Search API 返回格式不同
+                    if "items" in data:
+                        repos = data["items"]
+                    else:
+                        repos = data if isinstance(data, list) else []
+                    
+                    if not repos:
                         continue
                     
                     for repo in repos[:8]:
-                        author = repo.get("author", "") or repo.get("username", "")
-                        name = repo.get("name", "") or repo.get("reponame", "")
+                        # 兼容多种 API 返回格式
+                        if "full_name" in repo:  # GitHub Search API
+                            author, name = repo["full_name"].split("/") if "/" in repo["full_name"] else ("", repo["full_name"])
+                        else:  # Trending API
+                            author = repo.get("author", "") or repo.get("username", "")
+                            name = repo.get("name", "") or repo.get("reponame", "")
+                        
                         if not author or not name:
                             continue
                             
                         desc = repo.get("description", "") or ""
                         lang = repo.get("language", "") or repo.get("programmingLanguage", "") or "Unknown"
-                        stars = repo.get("stars", 0) or repo.get("totalStars", 0)
+                        
+                        # 星标数
+                        stars = (
+                            repo.get("stars") or 
+                            repo.get("totalStars") or 
+                            repo.get("stargazers_count") or 
+                            0
+                        )
                         stars_today = repo.get("starsSince", 0) or repo.get("starsToday", 0)
                         
                         self.all_items.append({
@@ -323,8 +349,8 @@ class AIDigestGenerator:
                             "日期": self.today.isoformat(),
                             "来源": f"GitHub {label}",
                             "板块": f"GitHub{label}",
-                            "链接": repo.get("url", f"https://github.com/{author}/{name}"),
-                            "额外": f"⭐ {stars:,} | 🔥 +{stars_today:,} | 💻 {lang}"
+                            "链接": repo.get("url") or repo.get("html_url") or f"https://github.com/{author}/{name}",
+                            "额外": f"⭐ {stars:,} | 🔥 +{stars_today:,} | 💻 {lang}" if stars_today else f"⭐ {stars:,} | 💻 {lang}"
                         })
                         count += 1
                     
