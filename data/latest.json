@@ -1,93 +1,156 @@
 {
-  "date": "2026-01-21",
+  "date": "2026-01-22",
+  "error": "❌ 未配置 SILICONFLOW_API_KEY，无法进行 AI 处理",
   "categories": {
-    "新闻": [
+    "原始数据": [
       {
-        "标题": "NYT Cooking新版自动缩放食谱功能使用技巧",
-        "内容": "NYT Cooking的新功能可即时调整食谱分量，本文提供实用建议（和直觉引导）以最大化利用该功能。",
-        "摘要": "《纽约时报》烹饪频道推出自动调整食谱分量的功能，并提供实用技巧帮助用户灵活使用这一创新工具，平衡科技与烹饪直觉。",
-        "日期": "2026-01-20T17:42:07",
+        "标题": "Who Needs A.I. Music When We Have Bruno Mars?",
+        "内容": "Our critic Jon Caramanica on the smooth pop sound of Bruno Mars’s new single.",
+        "日期": "2026-01-21T22:32:11",
         "来源": "纽约时报",
-        "链接": "https://cooking.nytimes.com/article/nyt-cooking-scaled-recipes"
+        "板块": "新闻",
+        "链接": "https://www.nytimes.com/video/podcasts/100000010659530/who-needs-ai-music-when-we-have-bruno-mars.html"
       },
       {
-        "标题": "印度语音平台Bolna获General Catalyst 630万美元融资",
-        "内容": "Bolna表示其75%收入来自自助服务客户，专注印度市场的语音编排技术。",
-        "摘要": "印度语音技术初创公司Bolna完成630万美元融资，主要收入源于自助服务客户，将继续深耕本土语音交互解决方案。",
-        "日期": "2026-01-21T02:00:00",
+        "标题": "Not to be outdone by OpenAI, Apple is reportedly developing an AI wearable",
+        "内容": "Should this wearable materialize, it could be released as early as 2027, according to a report on the device.",
+        "日期": "2026-01-22T00:20:18",
         "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/bolna-nabs-6-3-million-from-general-catalyst-for-its-india-focused-voice-orchestration-platform/"
-      }
-    ],
-    "明星公司动态": [
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/not-to-be-outdone-by-openai-apple-is-reportedly-developing-an-ai-wearable/"
+      },
       {
-        "标题": "Anthropic CEO在达沃斯公开批评Nvidia",
-        "内容": "Anthropic首席执行官Dario Amodei就芯片公司对华销售计划批评美国政府及半导体企业，矛头直指重要合作伙伴Nvidia。",
-        "摘要": "Anthropic CEO在达沃斯论坛公开谴责Nvidia等芯片企业对华销售政策，引发行业震动，尤其因其与Nvidia的合作关系备受关注。",
-        "日期": "2026-01-21T01:39:58",
+        "标题": "Sources: Project SGLang spins out as RadixArk with $400M valuation as inference market explodes",
+        "内容": "SGLang, which originated as an open source research project at Ion Stoica’s UC Berkeley lab, has raised capital from Accel.",
+        "日期": "2026-01-21T23:24:14",
         "来源": "TechCrunch",
-        "链接": "https://techcrunch.com/2026/01/20/anthropics-ceo-stuns-davos-with-nvidia-criticism/"
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/sources-project-sglang-spins-out-as-radixark-with-400m-valuation-as-inference-market-explodes/"
       },
       {
-        "标题": "OpenAI推出ChatGPT年龄预测功能保护青少年",
-        "内容": "通过预测用户年龄实施内容过滤，防止向18岁以下用户推送不当内容，成人误判可在账户设置中更正。",
-        "摘要": "OpenAI为ChatGPT新增年龄预测系统，自动识别未成年用户并启动保护机制，误判成人用户可手动验证年龄。",
-        "日期": "Tue Jan 20 19:01:03 +0000 2026",
-        "来源": "OpenAI",
-        "链接": "https://x.com/OpenAI/status/2013688237772898532"
+        "标题": "A timeline of the US semiconductor market in 2025",
+        "内容": "From leadership changes at legacy semiconductor companies to wishy washy policy around chip exports, a lot happened last year.",
+        "日期": "2026-01-21T22:46:13",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/a-timeline-of-the-u-s-semiconductor-market-in-2025/"
       },
       {
-        "标题": "GoogleDeepMind发布TranslateGemma开源翻译模型",
-        "内容": "新推出支持55种语言的翻译模型系列，提供4B/12B/27B三种参数规模，兼顾效率与质量。",
-        "摘要": "GoogleDeepMind开源TranslateGemma多语言翻译模型，覆盖55种语言，不同参数版本满足差异化需求。",
-        "日期": "Thu Jan 15 17:09:35 +0000 2026",
-        "来源": "GoogleDeepMind",
-        "链接": "https://x.com/GoogleDeepMind/status/2011848249850630363"
-      }
-    ],
-    "YouTube热点": [
-      {
-        "标题": "我们的视频使用AI吗？#幕后花絮",
-        "内容": "探讨视频制作中AI技术的应用情况。",
-        "日期": "2026-01-20T21:01:07Z",
-        "来源": "YouTube",
-        "链接": "https://youtube.com/watch?v=j3qUVnqCzUo"
+        "标题": "Todoist’s app now lets you add tasks to your to-do list by speaking to its AI",
+        "内容": "The feature, now public, lets you create to-do's and action items by speaking naturally to the app's AI.",
+        "日期": "2026-01-21T22:19:17",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/todoists-app-now-lets-you-add-tasks-to-your-to-do-list-by-speaking-to-its-ai/"
       },
       {
-        "标题": "其他AI对决Siri（第二部）🤖",
-        "内容": "",
-        "日期": "2026-01-20T16:11:16Z",
-        "来源": "YouTube",
-        "链接": "https://youtube.com/watch?v=ZOvJbeYRnjY"
-      }
-    ],
-    "GitHub热门": [
-      {
-        "标题": "microsoft/agent-lightning",
-        "内容": "AI智能体的高效训练工具。",
-        "摘要": "微软开源的Agent Lightning项目专注于提升AI代理的训练效率，获今日98星标。",
-        "日期": "2026-01-21T03:56:33.937503",
-        "来源": "GitHub",
-        "链接": "https://github.com/microsoft/agent-lightning",
-        "额外": "⭐ 98 stars today | 🔥 今日 0 | 💻 Python"
+        "标题": "Apple plans to make Siri an AI chatbot, report says",
+        "内容": "Siri could look more like ChatGPT than its current state as an integrated feature across Apple products.",
+        "日期": "2026-01-21T22:12:50",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/apple-plans-to-make-siri-an-ai-chatbot-report-says/"
       },
       {
-        "标题": "iOfficeAI/AionUi",
-        "内容": "支持多CLI工具的本地开源协作平台。",
-        "摘要": "AionUi提供对Gemini/Claude等多种CLI工具的本地化支持，单日斩获970星标。",
-        "日期": "2026-01-21T03:56:33.937503",
-        "来源": "GitHub",
-        "链接": "https://github.com/iOfficeAI/AionUi",
-        "额外": "⭐ 970 stars today | 🔥 今日 0 | 💻 TypeScript"
+        "标题": "Anthropic revises Claude’s ‘Constitution,’ and hints at chatbot consciousness",
+        "内容": "The newly revised document offers a roadmap for what Anthropic says is a safer and more helpful chatbot experience.",
+        "日期": "2026-01-21T22:07:58",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/anthropic-revises-claudes-constitution-and-hints-at-chatbot-consciousness/"
+      },
+      {
+        "标题": "Irony alert: Hallucinated citations found in papers from NeurIPS, the prestigious AI conference",
+        "内容": "Research from startup GPTZero points to the impossible problem prestigious conferences face in the age of AI slop.",
+        "日期": "2026-01-21T20:34:42",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/irony-alert-hallucinated-citations-found-in-papers-from-neurips-the-prestigious-ai-conference/"
+      },
+      {
+        "标题": "YouTube will soon let creators make Shorts with their own AI likeness",
+        "内容": "YouTube Shorts viewers might soon see AI versions of their favorite creators when scrolling through their feeds.",
+        "日期": "2026-01-21T15:41:15",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/youtube-will-soon-let-creators-make-shorts-with-their-own-ai-likeness/"
+      },
+      {
+        "标题": "OpenAI aims to ship its first device in 2026, and it could be earbuds",
+        "内容": "The AI startup is on track to announce its first hardware device in the second half of this year, OpenAI Chief Global Affairs Officer Chris Lehane said during an interview at Davos.",
+        "日期": "2026-01-21T15:20:23",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/openai-aims-to-ship-its-first-device-in-2026-and-it-could-be-earbuds/"
+      },
+      {
+        "标题": "TechCrunch Disrupt 2026 tickets now on sale: Lowest rates all year",
+        "内容": "TechCrunch Disrupt 2026 tickets are officially on sale. Save up to $680 on your ticket and be among the first 500 registrants to score a plus-one pass at 50% off. Don't miss 10,000 tech leaders, found",
+        "日期": "2026-01-21T15:00:00",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/01/21/techcrunch-disrupt-2026-tickets-now-on-sale-lowest-rates-all-year/"
+      },
+      {
+        "标题": "Apple is reportedly working on an AirTag-sized AI wearable",
+        "内容": "Apple is working on an AI-powered wearable pin with cameras and microphones designed to pick up a user's surroundings, according to a report from The Information. The rumored device is reportedly the ",
+        "日期": "2026-01-21T21:43:27",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/news/865212/apple-ai-pin-wearable-airtag-rumor"
+      },
+      {
+        "标题": "Anthropic’s new Claude ‘constitution’: be helpful and honest, and don’t destroy humanity",
+        "内容": "Anthropic is overhauling Claude's so-called \"soul doc.\" The new missive is a 57-page document titled \"Claude's Constitution,\" which details \"Anthropic's intentions for the model's values and behavior,",
+        "日期": "2026-01-21T20:36:18",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/ai-artificial-intelligence/865185/anthropic-claude-constitution-soul-doc"
+      },
+      {
+        "标题": "Apple is turning Siri into an AI bot that&#8217;s more like ChatGPT",
+        "内容": "Apple is planning a big Siri overhaul that will transform the voice assistant into an AI chatbot built directly into its iPhone and Mac, according to Bloomberg reporter Mark Gurman. The update is repo",
+        "日期": "2026-01-21T20:26:47",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/news/865172/apple-siri-ai-chatbot-chatgpt"
+      },
+      {
+        "标题": "ElevenLabs made an AI album to plug its music generator",
+        "内容": "ElevenLabs has released an album of AI-generated songs in its latest attempt to separate itself from the ethical concerns surrounding AI music. The Eleven Album aims to showcase \"how artists can use A",
+        "日期": "2026-01-21T17:00:00",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/news/864843/elevenlabs-ai-music-eleven-album-release"
+      },
+      {
+        "标题": "Instagram’s top boss is missing the point about AI on the platform",
+        "内容": "A couple of weeks ago, Adam Mosseri posted to his grid. In a series of messages, Instagram's top exec laid out his concerns for the platform in the coming year, largely around AI. The post was equal p",
+        "日期": "2026-01-21T14:15:00",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/tech/864768/instagram-adam-mosseri-ai-content-algorithm"
+      },
+      {
+        "标题": "YouTubers will be able to make Shorts with their own AI likenesses",
+        "内容": "Your YouTube Shorts feed might soon be filled with a lot more AI-generated content from your favorite creators - including AI-generated versions of the creators themselves. In his annual letter releas",
+        "日期": "2026-01-21T14:00:00",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/news/864610/youtube-shorts-ai-likenesses-neal-mohan-2026"
+      },
+      {
+        "标题": "Adobe Acrobat uses AI to turn your PDFs into podcasts",
+        "内容": "Adobe has added new generative AI features to Acrobat that aim to help you quickly edit PDFs and summarize them in audio and visual formats. These updates include chat-based editing and the ability to",
+        "日期": "2026-01-21T14:00:00",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/news/864811/adobe-acrobat-studio-generate-podcast-presentation"
       }
     ]
   },
   "analysis": {
-    "summary": "今日重点关注：1）OpenAI推出年龄验证系统强化青少年保护 2）GoogleDeepMind开源多语言翻译模型 3）微软Agent Lightning项目登顶GitHub热门",
-    "trends": [
-      "AI伦理保护（年龄验证）",
-      "开源多语言模型",
-      "AI代理训练工具"
-    ]
+    "summary": "⚠️ 未配置 API Key，请在 GitHub Secrets 中添加 SILICONFLOW_API_KEY",
+    "trends": []
   }
 }

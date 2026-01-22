@@ -129,7 +129,7 @@ class AIDigestGenerator:
                 "part": "snippet",
                 "q": "AI",
                 "order": "relevance",
-                "maxResults": 50,
+                "maxResults": 10,
                 "regionCode": "US",
                 "type": "video",
                 "publishedAfter": self.yesterday.isoformat() + "Z"
@@ -306,7 +306,7 @@ class AIDigestGenerator:
                     if not repos or not isinstance(repos, list):
                         continue
                     
-                    for repo in repos[:15]:
+                    for repo in repos[:8]:
                         author = repo.get("author", "") or repo.get("username", "")
                         name = repo.get("name", "") or repo.get("reponame", "")
                         if not author or not name:
@@ -351,7 +351,7 @@ class AIDigestGenerator:
                 params={
                     "sort": "trending",
                     "direction": -1,
-                    "limit": 20
+                    "limit": 10
                 },
                 headers={"User-Agent": "Mozilla/5.0"},
                 timeout=30
@@ -367,7 +367,7 @@ class AIDigestGenerator:
                 return
             
             count = 0
-            for model in models[:15]:
+            for model in models[:8]:
                 if not isinstance(model, dict):
                     continue
                     
@@ -410,9 +410,9 @@ class AIDigestGenerator:
         
         # 多个备用接口
         endpoints = [
-            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20, "SortBy": "gmtDownload"}),
-            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20}),
-            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 20}),
+            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10, "SortBy": "gmtDownload"}),
+            ("https://www.modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10}),
+            ("https://modelscope.cn/api/v1/models", {"PageNumber": 1, "PageSize": 10}),
         ]
         
         for url, params in endpoints:
@@ -444,7 +444,7 @@ class AIDigestGenerator:
                     continue
                 
                 count = 0
-                for model in models_data[:15]:
+                for model in models_data[:8]:
                     if not isinstance(model, dict):
                         continue
                     
@@ -496,13 +496,13 @@ class AIDigestGenerator:
             error_msg = "❌ 未配置 SILICONFLOW_API_KEY，无法进行 AI 处理"
             print(f"\n{error_msg}")
             
-            # 保存错误信息
+            # 保存错误信息（限制5条）
             fallback = {
                 "date": self.today_str,
                 "error": error_msg,
-                "categories": {"原始数据": self.all_items},
+                "categories": {"原始数据": self.all_items[:5]},
                 "analysis": {
-                    "summary": "⚠️ 未配置 API Key，请在 GitHub Secrets 中添加 SILICONFLOW_API_KEY",
+                    "summary": "⚠️ 未配置 API Key，请在 GitHub Secrets 中添加 SILICONFLOW_API_KEY（显示前5条）",
                     "trends": []
                 }
             }
@@ -526,11 +526,12 @@ Requirements:
 2. Summarize long content to 60-80 Chinese characters
 3. Group by category
 4. Keep "额外" field (stars, downloads, etc.)
+5. **IMPORTANT: Each category should have AT MOST 5 items (select the most important/popular ones)**
 
 Output format (ONLY this JSON, nothing else):
 {{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[],"ModelScope热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
 
-CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations."""
+CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations. Maximum 5 items per category."""
 
         try:
             from openai import OpenAI
@@ -588,6 +589,12 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
             if not result:
                 raise Exception("无法解析 AI 返回的 JSON")
             
+            # 确保每个分类最多5条
+            categories = result.get("categories", {})
+            for category_name, items in categories.items():
+                if isinstance(items, list) and len(items) > 5:
+                    categories[category_name] = items[:5]
+            
             # 保存
             (self.data_dir / f"digest_{self.today_str}.json").write_text(
                 json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -595,7 +602,7 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
                 json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
             
             total = sum(len(v) for v in result.get("categories", {}).values())
-            print(f"  ✅ 完成，共 {total} 条")
+            print(f"  ✅ 完成，共 {total} 条（每分类最多5条）")
             return result
             
         except Exception as e:
@@ -603,13 +610,13 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
             error_msg = f"AI 处理失败: {str(e)}\n{traceback.format_exc()}"
             print(f"  ❌ {error_msg}")
             
-            # 失败时保存原始数据，并附带错误信息
+            # 失败时保存原始数据，并附带错误信息（限制5条）
             fallback = {
                 "date": self.today_str,
                 "error": error_msg,
-                "categories": {"原始数据": self.all_items},
+                "categories": {"原始数据": self.all_items[:5]},
                 "analysis": {
-                    "summary": f"⚠️ AI 处理失败，显示原始数据。错误：{str(e)}",
+                    "summary": f"⚠️ AI 处理失败，显示原始数据（前5条）。错误：{str(e)}",
                     "trends": []
                 }
             }
