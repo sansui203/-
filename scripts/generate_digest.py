@@ -307,7 +307,7 @@ class AIDigestGenerator:
             apis = [
                 f"https://api.gitterapp.com/repositories?since={period}",
                 f"https://gh-trending-api.herokuapp.com/repositories?since={period}",
-                f"https://api.github.com/search/repositories?q=stars:>{stars_req}+{search_field}:>{date_range}&sort=stars&order=desc&per_page=8",
+                f"https://api.github.com/search/repositories?q=stars:>{stars_req}+{search_field}:>{date_range}&sort=stars&order=desc&per_page=10",
             ]
             
             for api_url in apis:
@@ -330,7 +330,7 @@ class AIDigestGenerator:
                         print(f"      ⚠️ {api_url[:50]}... -> 返回空数据")
                         continue
                     
-                    for repo in repos[:8]:
+                    for repo in repos[:10]:
                         # 兼容多种 API 返回格式
                         if "full_name" in repo:  # GitHub Search API
                             author, name = repo["full_name"].split("/") if "/" in repo["full_name"] else ("", repo["full_name"])
@@ -400,7 +400,7 @@ class AIDigestGenerator:
                 return
             
             count = 0
-            for model in models[:8]:
+            for model in models[:10]:
                 if not isinstance(model, dict):
                     continue
                     
@@ -519,6 +519,144 @@ class AIDigestGenerator:
         
         print("  ⚠️ 所有接口均失败（ModelScope 可能需要登录或在国外访问受限）")
 
+    # ==================== GitHub AI Agent/MCP/Skills 热门（无需 API）====================
+    
+    def fetch_github_agents(self):
+        """获取 GitHub 热门 AI Agent 项目"""
+        print("\n🤖 GitHub AI Agent 热门项目...")
+        
+        try:
+            # 搜索 AI agent 相关的热门仓库
+            # 使用更简单的查询格式，避免 URL 编码问题
+            r = requests.get(
+                "https://api.github.com/search/repositories",
+                params={
+                    "q": "ai agent llm autonomous stars:>1000",
+                    "sort": "stars",
+                    "order": "desc",
+                    "per_page": 10
+                },
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=30
+            )
+            
+            if r.status_code != 200:
+                print(f"  ❌ HTTP {r.status_code}")
+                return
+            
+            data = r.json()
+            repos = data.get("items", [])
+            
+            count = 0
+            for repo in repos[:10]:
+                full_name = repo.get("full_name", "")
+                if not full_name:
+                    continue
+                
+                self.all_items.append({
+                    "标题": full_name,
+                    "内容": (repo.get("description") or "AI Agent 项目")[:200],
+                    "日期": self.today.isoformat(),
+                    "来源": "GitHub AI Agent",
+                    "板块": "AI Agent热门",
+                    "链接": repo.get("html_url", f"https://github.com/{full_name}"),
+                    "额外": f"⭐ {repo.get('stargazers_count', 0):,} | 💻 {repo.get('language', 'Unknown')}"
+                })
+                count += 1
+            
+            print(f"  ✅ {count} 条")
+        except Exception as e:
+            print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
+    
+    def fetch_github_mcp_tools(self):
+        """获取 Smithery.ai 热门 MCP 工具"""
+        print("\n🔧 Smithery.ai MCP 工具热门...")
+        
+        try:
+            # 使用 Smithery.ai 官方 API 获取热门 MCP servers
+            r = requests.get(
+                "https://registry.smithery.ai/servers?limit=10",
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=30
+            )
+            
+            if r.status_code != 200:
+                print(f"  ❌ HTTP {r.status_code}")
+                return
+            
+            data = r.json()
+            servers = data.get("servers", [])
+            
+            count = 0
+            for server in servers[:10]:
+                name = server.get("displayName", "") or server.get("qualifiedName", "")
+                if not name:
+                    continue
+                
+                use_count = server.get("useCount", 0)
+                desc = server.get("description", "MCP Server")
+                
+                self.all_items.append({
+                    "标题": name,
+                    "内容": desc[:200] if desc else "MCP 工具",
+                    "日期": self.today.isoformat(),
+                    "来源": "Smithery.ai",
+                    "板块": "MCP工具热门",
+                    "链接": server.get("homepage", f"https://smithery.ai/server/{server.get('qualifiedName', '')}"),
+                    "额外": f"🔥 {use_count:,} 使用次数 | {'✅ 官方验证' if server.get('verified') else ''}"
+                })
+                count += 1
+            
+            print(f"  ✅ {count} 条")
+        except Exception as e:
+            print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
+    
+    def fetch_github_ai_skills(self):
+        """获取 GitHub 热门 AI Skills/Prompts 项目"""
+        print("\n🎯 GitHub AI Skills/Prompts 热门项目...")
+        
+        try:
+            # 搜索 AI prompts/prompt engineering/skills 相关的热门仓库
+            r = requests.get(
+                "https://api.github.com/search/repositories",
+                params={
+                    "q": "prompt engineering prompts llm stars:>500",
+                    "sort": "stars",
+                    "order": "desc",
+                    "per_page": 10
+                },
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=30
+            )
+            
+            if r.status_code != 200:
+                print(f"  ❌ HTTP {r.status_code}")
+                return
+            
+            data = r.json()
+            repos = data.get("items", [])
+            
+            count = 0
+            for repo in repos[:10]:
+                full_name = repo.get("full_name", "")
+                if not full_name:
+                    continue
+                
+                self.all_items.append({
+                    "标题": full_name,
+                    "内容": (repo.get("description") or "AI Skills 项目")[:200],
+                    "日期": self.today.isoformat(),
+                    "来源": "GitHub AI Skills",
+                    "板块": "AI Skills热门",
+                    "链接": repo.get("html_url", f"https://github.com/{full_name}"),
+                    "额外": f"⭐ {repo.get('stargazers_count', 0):,} | 💻 {repo.get('language', 'Unknown')}"
+                })
+                count += 1
+            
+            print(f"  ✅ {count} 条")
+        except Exception as e:
+            print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
+
     # ==================== AI 处理 ====================
     
     def ai_process(self):
@@ -557,12 +695,12 @@ Requirements:
 2. Summarize long content to 60-80 Chinese characters
 3. Group by category
 4. Keep "额外" field (stars, downloads, etc.)
-5. **IMPORTANT: Each category should have AT MOST 5 items (select the most important/popular ones)**
+5. **IMPORTANT: Each category should have AT MOST 10 items (select the most important/popular ones)**
 
 Output format (ONLY this JSON, nothing else):
-{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"HuggingFace热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
+{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"AI Agent热门":[],"MCP工具热门":[],"AI Skills热门":[],"HuggingFace热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
 
-CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations. Maximum 5 items per category."""
+CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations. Maximum 10 items per category."""
 
         try:
             from openai import OpenAI
@@ -623,8 +761,8 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
             # 确保每个分类最多5条
             categories = result.get("categories", {})
             for category_name, items in categories.items():
-                if isinstance(items, list) and len(items) > 5:
-                    categories[category_name] = items[:5]
+                if isinstance(items, list) and len(items) > 10:
+                    categories[category_name] = items[:10]
             
             # 保存
             (self.data_dir / f"digest_{self.today_str}.json").write_text(
@@ -633,7 +771,7 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
                 json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
             
             total = sum(len(v) for v in result.get("categories", {}).values())
-            print(f"  ✅ 完成，共 {total} 条（每分类最多5条）")
+            print(f"  ✅ 完成，共 {total} 条（每分类最多10条）")
             return result
             
         except Exception as e:
@@ -668,6 +806,9 @@ CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanati
         self.safe_fetch("Twitter账号", self.fetch_twitter_accounts)
         self.safe_fetch("TikTok", self.fetch_tiktok)
         self.safe_fetch("GitHub热门", self.fetch_github_trending)
+        self.safe_fetch("AI Agent热门", self.fetch_github_agents)
+        self.safe_fetch("MCP工具热门", self.fetch_github_mcp_tools)
+        self.safe_fetch("AI Skills热门", self.fetch_github_ai_skills)
         self.safe_fetch("HuggingFace", self.fetch_huggingface_trending)
         self.safe_fetch("ModelScope", self.fetch_modelscope_trending)
         
