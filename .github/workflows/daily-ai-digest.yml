@@ -38,6 +38,7 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          SMITHERY_API_KEY: ${{ secrets.SMITHERY_API_KEY }}
         run: python scripts/generate_digest.py
 
       - name: 生成网页

@@ -612,15 +612,104 @@ class AIDigestGenerator:
             print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
     
     def fetch_github_ai_skills(self):
-        """获取 GitHub 热门 AI Skills/Prompts 项目"""
-        print("\n🎯 GitHub AI Skills/Prompts 热门项目...")
+        """获取热门 AI Skills（优先 Smithery API，备用 skillsmp.com 和 GitHub）"""
+        print("\n🎯 热门 AI Skills...")
         
+        count = 0
+        smithery_key = os.environ.get("SMITHERY_API_KEY")
+        
+        # 方案1: Smithery API（需要 API Key）
+        if smithery_key:
+            try:
+                r = requests.get(
+                    "https://registry.smithery.ai/skills",
+                    params={"limit": 10},
+                    headers={
+                        "Authorization": f"Bearer {smithery_key}",
+                        "User-Agent": "Mozilla/5.0"
+                    },
+                    timeout=30
+                )
+                
+                if r.status_code == 200:
+                    data = r.json()
+                    skills = data.get("skills", []) if isinstance(data, dict) else data
+                    
+                    for skill in skills[:10]:
+                        name = skill.get("displayName", "") or skill.get("name", "") or skill.get("qualifiedName", "")
+                        if not name:
+                            continue
+                        
+                        use_count = skill.get("useCount", 0)
+                        desc = skill.get("description", "AI Skill")
+                        
+                        self.all_items.append({
+                            "标题": name,
+                            "内容": desc[:200] if desc else "AI Skill",
+                            "日期": self.today.isoformat(),
+                            "来源": "Smithery Skills",
+                            "板块": "AI Skills热门",
+                            "链接": skill.get("homepage", f"https://smithery.ai/skill/{skill.get('qualifiedName', '')}"),
+                            "额外": f"🔥 {use_count:,} 使用次数 | {'✅ 官方验证' if skill.get('verified') else ''}"
+                        })
+                        count += 1
+                    
+                    if count > 0:
+                        print(f"  ✅ {count} 条（来自 Smithery API）")
+                        return
+                else:
+                    print(f"  ⚠️ Smithery API HTTP {r.status_code}，尝试备用方案")
+            except Exception as e:
+                print(f"  ⚠️ Smithery API 失败: {type(e).__name__}，尝试备用方案")
+        else:
+            print("  ⚠️ 未配置 SMITHERY_API_KEY，尝试备用方案")
+        
+        # 方案2: 尝试 skillsmp.com（GitHub Actions 环境应可访问）
         try:
-            # 搜索 AI prompts/prompt engineering/skills 相关的热门仓库
+            r = requests.get(
+                "https://skillsmp.com/api/skills",
+                params={"limit": 10, "sort": "popular"},
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    "Accept": "application/json"
+                },
+                timeout=30
+            )
+            
+            if r.status_code == 200:
+                data = r.json()
+                skills = data if isinstance(data, list) else data.get("skills", []) or data.get("data", [])
+                
+                for skill in skills[:10]:
+                    name = skill.get("name", "") or skill.get("title", "")
+                    if not name:
+                        continue
+                    
+                    self.all_items.append({
+                        "标题": name,
+                        "内容": (skill.get("description") or "AI Skill")[:200],
+                        "日期": self.today.isoformat(),
+                        "来源": "SkillsMP",
+                        "板块": "AI Skills热门",
+                        "链接": skill.get("url") or skill.get("link") or f"https://skillsmp.com/skill/{skill.get('id', '')}",
+                        "额外": f"🔥 {skill.get('downloads', 0) or skill.get('uses', 0):,} 使用"
+                    })
+                    count += 1
+                
+                if count > 0:
+                    print(f"  ✅ {count} 条（来自 skillsmp.com）")
+                    return
+            else:
+                print(f"  ⚠️ skillsmp.com HTTP {r.status_code}，尝试 GitHub 备用方案")
+        except Exception as e:
+            print(f"  ⚠️ skillsmp.com 失败: {type(e).__name__}，尝试 GitHub 备用方案")
+        
+        # 方案2: GitHub 备用 - 搜索 agent skills 相关项目
+        try:
             r = requests.get(
                 "https://api.github.com/search/repositories",
                 params={
-                    "q": "prompt engineering prompts llm stars:>500",
+                    "q": "awesome-chatgpt-prompts awesome-prompts prompt-engineering stars:>1000",
                     "sort": "stars",
                     "order": "desc",
                     "per_page": 10
@@ -630,13 +719,12 @@ class AIDigestGenerator:
             )
             
             if r.status_code != 200:
-                print(f"  ❌ HTTP {r.status_code}")
+                print(f"  ❌ GitHub 备用也失败: HTTP {r.status_code}")
                 return
             
             data = r.json()
             repos = data.get("items", [])
             
-            count = 0
             for repo in repos[:10]:
                 full_name = repo.get("full_name", "")
                 if not full_name:
@@ -646,14 +734,14 @@ class AIDigestGenerator:
                     "标题": full_name,
                     "内容": (repo.get("description") or "AI Skills 项目")[:200],
                     "日期": self.today.isoformat(),
-                    "来源": "GitHub AI Skills",
+                    "来源": "GitHub Skills",
                     "板块": "AI Skills热门",
                     "链接": repo.get("html_url", f"https://github.com/{full_name}"),
                     "额外": f"⭐ {repo.get('stargazers_count', 0):,} | 💻 {repo.get('language', 'Unknown')}"
                 })
                 count += 1
             
-            print(f"  ✅ {count} 条")
+            print(f"  ✅ {count} 条（来自 GitHub 备用）")
         except Exception as e:
             print(f"  ❌ {type(e).__name__}: {str(e)[:100]}")
 
