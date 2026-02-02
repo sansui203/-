@@ -3,32 +3,32 @@
   "categories": {
     "新闻": [
       {
-        "标题": "快进但遵守规则：中国主导AI的愿景",
-        "内容": "北京希望在开发尖端人工智能方面领先世界，但也要求企业遵守日益复杂的规则。",
-        "日期": "2026-02-02T07:30:51",
+        "标题": "专为AI机器人打造的社交网络Moltbook上线",
+        "内容": "新网站Moltbook成为硅谷热议话题，被视为对人工智能现状的罗夏测试。",
+        "日期": "2026-02-02T10:02:59",
         "来源": "纽约时报",
         "板块": "新闻",
-        "链接": "https://www.nytimes.com/2026/02/02/business/china-ai-regulations.html"
+        "链接": "https://www.nytimes.com/2026/02/02/technology/a-social-network-for-ai-bots-only-no-humans-allowed.html"
       },
       {
-        "标题": "这些AI记事设备可帮助您记录和转录会议",
-        "内容": "这些物理记事器使用AI转录音频并提供会议摘要和行动项，部分还提供实时翻译。",
+        "标题": "AI笔记设备可帮助记录和转录会议内容",
+        "内容": "这些物理笔记设备使用AI转录音频，并为用户提供会议摘要和行动项。",
         "日期": "2026-02-02T08:00:00",
         "来源": "TechCrunch",
         "板块": "新闻",
         "链接": "https://techcrunch.com/2026/02/02/ai-notetaker-hardware-devices-pins-pendants-record-transcribe/"
       },
       {
-        "标题": "AI裁员还是‘AI洗白’？",
-        "内容": "近期裁员的企业中有多少只是以AI为借口？",
+        "标题": "AI裁员还是'AI洗白'？",
+        "内容": "近期有多少公司只是以AI为借口进行裁员？",
         "日期": "2026-02-01T22:15:53",
         "来源": "TechCrunch",
         "板块": "新闻",
         "链接": "https://techcrunch.com/2026/02/01/ai-layoffs-or-ai-washing/"
       },
       {
-        "标题": "印度提供2047年前零税收以吸引全球AI工作负载",
-        "内容": "新德里的最新举措正值亚马逊、谷歌和微软扩大在印度的数据中心投资。",
+        "标题": "印度提供2047年前零税收吸引全球AI工作负载",
+        "内容": "新德里最新举措正值亚马逊、谷歌和微软扩大在印度的数据中心投资。",
         "日期": "2026-02-01T16:30:00",
         "来源": "TechCrunch",
         "板块": "新闻",
@@ -36,37 +36,48 @@
       },
       {
         "标题": "再见企业集团，你好个人集团",
-        "内容": "据报道，马斯克将SpaceX、xAI和特斯拉合并，让人想起通用电气的鼎盛时期。",
+        "内容": "埃隆·马斯克据报道将SpaceX、xAI和特斯拉合并，让人想起通用电气的鼎盛时期。",
         "日期": "2026-02-01T15:39:08",
         "来源": "TechCrunch",
         "板块": "新闻",
         "链接": "https://techcrunch.com/2026/02/01/bye-bye-corporate-conglomerates-hello-personal-conglomerates/"
-      }
-    ],
-    "YouTube热点": [
+      },
       {
-        "标题": "接受或拒绝AI团队合作伙伴的决定！！！",
-        "内容": "为什么这么严肃？谁被接受了。",
-        "日期": "2026-02-01T13:00:06Z",
-        "来源": "YouTube",
-        "板块": "YouTube热点",
-        "链接": "https://youtube.com/watch?v=xQbPVoHnxc4"
+        "标题": "印度尼西亚'有条件'解除对Grok的禁令",
+        "内容": "印度尼西亚跟随马来西亚和菲律宾的脚步，解除了对xAI聊天机器人Grok的禁令。",
+        "日期": "2026-02-01T17:20:00",
+        "来源": "TechCrunch",
+        "板块": "新闻",
+        "链接": "https://techcrunch.com/2026/02/01/indonesia-conditionally-lifts-ban-on-grok/"
+      },
+      {
+        "标题": "揭示伊朗最长互联网中断的真相",
+        "内容": "伊朗政权在一月初抗议活动爆发后关闭了互联网，开始了伊朗历史上最长的黑屏期。",
+        "日期": "2026-02-01T18:30:00",
+        "来源": "The Verge",
+        "板块": "新闻",
+        "链接": "https://www.theverge.com/policy/871848/iran-blackout-internet-mahsa-alimardani"
       }
     ],
+    "明星公司动态": [],
+    "油管博主": [],
+    "YouTube热点": [],
+    "Twitter热点": [],
+    "TikTok热点": [],
     "GitHub今日热门": [
       {
         "标题": "freeCodeCamp/freeCodeCamp",
         "内容": "freeCodeCamp.org的开源代码库和课程。免费学习数学、编程和计算机科学。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 今日热门",
         "板块": "GitHub今日热门",
         "链接": "https://api.github.com/repos/freeCodeCamp/freeCodeCamp",
-        "额外": "⭐ 436,644 | 💻 TypeScript"
+        "额外": "⭐ 436,645 | 💻 TypeScript"
       },
       {
         "标题": "vinta/awesome-python",
         "内容": "一个精选的Python框架、库、软件和资源列表。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 今日热门",
         "板块": "GitHub今日热门",
         "链接": "https://api.github.com/repos/vinta/awesome-python",
@@ -75,7 +86,7 @@
       {
         "标题": "tensorflow/tensorflow",
         "内容": "一个面向所有人的开源机器学习框架。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 今日热门",
         "板块": "GitHub今日热门",
         "链接": "https://api.github.com/repos/tensorflow/tensorflow",
@@ -83,8 +94,8 @@
       },
       {
         "标题": "ohmyzsh/ohmyzsh",
-        "内容": "一个由社区驱动的框架，用于管理zsh配置，包含300多个可选插件。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "一个令人愉快的社区驱动框架，用于管理zsh配置。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 今日热门",
         "板块": "GitHub今日热门",
         "链接": "https://api.github.com/repos/ohmyzsh/ohmyzsh",
@@ -92,8 +103,8 @@
       },
       {
         "标题": "Significant-Gravitas/AutoGPT",
-        "内容": "AutoGPT是面向所有人的可访问AI愿景，提供工具让您专注于重要事项。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "AutoGPT是可访问AI的愿景，供每个人使用和构建。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 今日热门",
         "板块": "GitHub今日热门",
         "链接": "https://api.github.com/repos/Significant-Gravitas/AutoGPT",
@@ -104,34 +115,34 @@
       {
         "标题": "freeCodeCamp/freeCodeCamp",
         "内容": "freeCodeCamp.org的开源代码库和课程。免费学习数学、编程和计算机科学。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 本周热门",
         "板块": "GitHub本周热门",
         "链接": "https://api.github.com/repos/freeCodeCamp/freeCodeCamp",
-        "额外": "⭐ 436,644 | 💻 TypeScript"
+        "额外": "⭐ 436,645 | 💻 TypeScript"
       },
       {
         "标题": "sindresorhus/awesome",
         "内容": "关于各种有趣主题的精选列表。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 本周热门",
         "板块": "GitHub本周热门",
         "链接": "https://api.github.com/repos/sindresorhus/awesome",
-        "额外": "⭐ 434,354 | 💻 Unknown"
+        "额外": "⭐ 434,358 | 💻 Unknown"
       },
       {
         "标题": "EbookFoundation/free-programming-books",
         "内容": "免费提供的编程书籍。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 本周热门",
         "板块": "GitHub本周热门",
         "链接": "https://api.github.com/repos/EbookFoundation/free-programming-books",
-        "额外": "⭐ 381,860 | 💻 Python"
+        "额外": "⭐ 381,862 | 💻 Python"
       },
       {
         "标题": "kamranahmedse/developer-roadmap",
-        "内容": "交互式路线图、指南和其他教育内容，帮助开发者在职业生涯中成长。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "互动路线图、指南和其他教育内容，帮助开发者在职业生涯中成长。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 本周热门",
         "板块": "GitHub本周热门",
         "链接": "https://api.github.com/repos/kamranahmedse/developer-roadmap",
@@ -140,7 +151,7 @@
       {
         "标题": "vinta/awesome-python",
         "内容": "一个精选的Python框架、库、软件和资源列表。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub 本周热门",
         "板块": "GitHub本周热门",
         "链接": "https://api.github.com/repos/vinta/awesome-python",
@@ -151,7 +162,7 @@
       {
         "标题": "CherryHQ/cherry-studio",
         "内容": "AI代理+编码代理+300+助手：具有自主编码、智能自动化和统一访问前沿LLM的代理AI桌面。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub AI Agent",
         "板块": "AI Agent热门",
         "链接": "https://github.com/CherryHQ/cherry-studio",
@@ -160,7 +171,7 @@
       {
         "标题": "reworkd/AgentGPT",
         "内容": "在浏览器中组装、配置和部署自主AI代理。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub AI Agent",
         "板块": "AI Agent热门",
         "链接": "https://github.com/reworkd/AgentGPT",
@@ -168,8 +179,8 @@
       },
       {
         "标题": "khoj-ai/khoj",
-        "内容": "您的AI第二大脑。可自托管。从网络或文档中获取答案。构建自定义代理，安排自动化，进行深入研究。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "你的AI第二大脑。可自托管。从网络或文档中获取答案。构建自定义代理，安排自动化，进行深入研究。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub AI Agent",
         "板块": "AI Agent热门",
         "链接": "https://github.com/khoj-ai/khoj",
@@ -178,27 +189,27 @@
       {
         "标题": "assafelovic/gpt-researcher",
         "内容": "一个自主代理，使用任何LLM提供商对任何数据进行深入研究。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Agent",
+        "日期": "2026-02-02T10:32:43.323920",
+        "ources": "GitHub AI Agent",
         "板块": "AI Agent热门",
         "链接": "https://github.com/assafelovic/gpt-researcher",
-        "额外": "⭐ 25,160 | 💻 Python"
+        "额外": "⭐ 25,161 | 💻 Python"
       },
       {
         "标题": "Fosowl/agenticSeek",
         "内容": "完全本地化的Manus AI。无需API，无需每月200美元账单。享受一个自主代理，只需电费成本。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "GitHub AI Agent",
         "板块": "AI Agent热门",
         "链接": "https://github.com/Fosowl/agenticSeek",
-        "额外": "⭐ 24,886 | 💻 Python"
+        "额外": "⭐ 24,887 | 💻 Python"
       }
     ],
     "MCP工具热门": [
       {
         "标题": "Linkup",
         "内容": "实时搜索网络以获取可信赖、有来源支持的答案。查找最新新闻和最相关来源的综合结果。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "Smithery.ai",
         "板块": "MCP工具热门",
         "链接": "https://smithery.ai/server/@LinkupPlatform/linkup-mcp-server",
@@ -206,8 +217,8 @@
       },
       {
         "标题": "Google Super",
-        "内容": "Google超级应用结合了所有Google服务，包括Drive、Calendar、Gmail等，提供统一平台。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "Google超级应用结合了所有Google服务，包括Drive、Calendar、Gmail、Sheets等。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "Smithery.ai",
         "板块": "MCP工具热门",
         "链接": "https://smithery.ai/server/googlesuper",
@@ -215,8 +226,8 @@
       },
       {
         "标题": "Gmail",
-        "内容": "端到端管理Gmail：发送、草稿、回复、转发、批量修改或删除消息和线程。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "端到端管理Gmail：发送、草拟、回复、转发、批量修改或删除消息和线程。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "Smithery.ai",
         "板块": "MCP工具热门",
         "链接": "https://smithery.ai/server/gmail",
@@ -225,7 +236,7 @@
       {
         "标题": "Google Calendar",
         "内容": "Google日历是一个时间管理工具，提供日程安排功能、事件提醒以及与电子邮件和其他应用的集成。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "Smithery.ai",
         "板块": "MCP工具热门",
         "链接": "https://smithery.ai/server/googlecalendar",
@@ -233,8 +244,8 @@
       },
       {
         "标题": "Google Maps",
-        "内容": "集成Google地图以访问位置数据、地理编码、方向和服务。",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "集成Google地图以访问位置数据、地理编码、方向和在您的应用程序中的地图服务。",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "Smithery.ai",
         "板块": "MCP工具热门",
         "链接": "https://smithery.ai/server/google_maps",
@@ -243,65 +254,65 @@
     ],
     "AI Skills热门": [
       {
-        "标题": "langfuse/langfuse",
-        "内容": "开源LLM工程平台：LLM可观察性、指标、评估、提示管理、游乐场、数据集。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Skills",
+        "标题": "frontend-design",
+        "内容": "创建独特、生产级的前端界面，具有高质量设计。",
+        "日期": "2026-02-02T10:32:43.323920",
+        "来源": "Smithery Skills",
         "板块": "AI Skills热门",
-        "链接": "https://github.com/langfuse/langfuse",
-        "额外": "⭐ 21,393 | 💻 TypeScript"
+        "链接": "https://smithery.ai/skill/",
+        "额外": "🔥 0 使用次数 | "
       },
       {
-        "标题": "BoundaryML/baml",
-        "内容": "为提示工程添加工程的AI框架（兼容Python/TS/Ruby/Java/C#/Rust/Go）。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Skills",
+        "标题": "mcp-integration",
+        "内容": "当用户要求'添加MCP服务器'、'集成MCP'、'在插件中配置MCP'时使用此技能。",
+        "日期": "2026-02-02T10:32:43.323920",
+        "来源": "Smithery Skills",
         "板块": "AI Skills热门",
-        "链接": "https://github.com/BoundaryML/baml",
-        "额外": "⭐ 7,496 | 💻 Rust"
+        "链接": "https://smithery.ai/skill/",
+        "额外": "🔥 0 使用次数 | "
       },
       {
-        "标题": "NirDiamant/Prompt_Engineering",
-        "内容": "提供全面的提示工程技术教程和实现，从基本概念到高级策略。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Skills",
+        "标题": "skill-writer",
+        "内容": "指导用户为Claude Code创建代理技能。",
+        "日期": "2026-02-02T10:32:43.323920",
+        "来源": "Smithery Skills",
         "板块": "AI Skills热门",
-        "链接": "https://github.com/NirDiamant/Prompt_Engineering",
-        "额外": "⭐ 7,039 | 💻 Jupyter Notebook"
+        "链接": "https://smithery.ai/skill/",
+        "额外": "🔥 0 使用次数 | "
       },
       {
-        "标题": "trigaten/Learn_Prompting",
-        "内容": "Learn Prompting的提示工程、生成AI和LLM指南。加入我们的discord社区。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Skills",
+        "标题": "skill-development",
+        "内容": "当用户想要'创建技能'、'向插件添加技能'、'编写新技能'时使用此技能。",
+        "日期": "2026-02-02T10:32:43.323920",
+        "来源": "Smithery Skills",
         "板块": "AI Skills热门",
-        "链接": "https://github.com/trigaten/Learn_Prompting",
-        "额外": "⭐ 4,642 | 💻 MDX"
+        "链接": "https://smithery.ai/skill/",
+        "额外": "🔥 0 使用次数 | "
       },
       {
-        "标题": "promptslab/Promptify",
-        "内容": "提示工程 | 提示版本控制 | 使用GPT或其他提示模型获取结构化输出。",
-        "日期": "2026-02-02T10:05:23.777617",
-        "来源": "GitHub AI Skills",
+        "标题": "skill-creator",
+        "内容": "创建有效技能的指南。当用户想要创建新技能时使用此技能。",
+        "日期": "2026-02-02T10:32:43.323920",
+        "来源": "Smithery Skills",
         "板块": "AI Skills热门",
-        "链接": "https://github.com/promptslab/Promptify",
-        "额外": "⭐ 4,547 | 💻 Jupyter Notebook"
+        "链接": "https://smithery.ai/skill/",
+        "额外": "🔥 0 使用次数 | "
       }
     ],
     "HuggingFace热门": [
       {
         "标题": "moonshotai/Kimi-K2.5",
-        "内容": "transformers | 热度: 1429",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "transformers | 热度: 1430",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "HuggingFace",
         "板块": "HuggingFace热门",
         "链接": "https://huggingface.co/moonshotai/Kimi-K2.5",
-        "额外": "📥 96,162 下载 | ❤️ 1429 点赞 | 🔥 热度 1429"
+        "额外": "📥 96,162 下载 | ❤️ 1430 点赞 | 🔥 热度 1430"
       },
       {
         "标题": "Tongyi-MAI/Z-Image",
         "内容": "diffusers | 热度: 785",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "HuggingFace",
         "板块": "HuggingFace热门",
         "链接": "https://huggingface.co/Tongyi-MAI/Z-Image",
@@ -310,7 +321,7 @@
       {
         "标题": "tencent/HunyuanImage-3.0-Instruct",
         "内容": "safetensors | 热度: 722",
-        "日期": "2026-02-02T10:05:23.777617",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "HuggingFace",
         "板块": "HuggingFace热门",
         "链接": "https://huggingface.co/tencent/HunyuanImage-3.0-Instruct",
@@ -318,29 +329,29 @@
       },
       {
         "标题": "deepseek-ai/DeepSeek-OCR-2",
-        "内容": "transformers | 热度: 622",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "transformers | 热度: 624",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "HuggingFace",
         "板块": "HuggingFace热门",
         "链接": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2",
-        "额外": "📥 143,676 下载 | ❤️ 622 点赞 | 🔥 热度 622"
+        "额外": "📥 143,676 下载 | ❤️ 624 点赞 | 🔥 热度 624"
       },
       {
         "标题": "nvidia/personaplex-7b-v1",
-        "内容": "moshi | 热度: 562",
-        "日期": "2026-02-02T10:05:23.777617",
+        "内容": "moshi | 热度: 560",
+        "日期": "2026-02-02T10:32:43.323920",
         "来源": "HuggingFace",
         "板块": "HuggingFace热门",
         "链接": "https://huggingface.co/nvidia/personaplex-7b-v1",
-        "额外": "📥 101,038 下载 | ❤️ 1580 点赞 | 🔥 热度 562"
+        "额外": "📥 101,038 下载 | ❤️ 1580 点赞 | 🔥 热度 560"
       }
     ]
   },
   "analysis": {
-    "summary": "今日摘要：中国推动AI发展同时加强监管，印度提供税收优惠吸引AI投资，GitHub和HuggingFace热门项目持续增长。",
+    "summary": "今日摘要：AI社交网络Moltbook引发热议，印度推出AI税收优惠政策，GitHub热门项目持续更新，AI代理工具日益流行。",
     "trends": [
-      "AI代理和自动化工具需求增长",
-      "开源AI项目持续受欢迎"
+      "AI社交网络和代理工具成为新热点",
+      "各国政府推出AI相关政策吸引投资"
     ]
   }
 }
