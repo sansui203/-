@@ -748,7 +748,7 @@ class AIDigestGenerator:
     # ==================== AI 处理 ====================
     
     def ai_process(self):
-        """AI 翻译和摘要"""
+        """AI 翻译和摘要（分批处理）"""
         if not self.siliconflow_key:
             error_msg = "❌ 未配置 SILICONFLOW_API_KEY，无法进行 AI 处理"
             print(f"\n{error_msg}")
@@ -773,84 +773,112 @@ class AIDigestGenerator:
         
         print(f"\n🤖 AI 处理 ({self.model})...")
         
-        prompt = f"""You are a JSON formatter. Process the following AI news data and return ONLY valid JSON, no extra text.
-
-Input data:
-{json.dumps(self.all_items[:100], ensure_ascii=False)}
-
-Requirements:
-1. Translate English to Chinese
-2. Summarize long content to 60-80 Chinese characters
-3. Group by category
-4. Keep "额外" field (stars, downloads, etc.)
-5. **IMPORTANT: Each category should have AT MOST 10 items (select the most important/popular ones)**
-
-Output format (ONLY this JSON, nothing else):
-{{"date":"{self.today_str}","categories":{{"新闻":[],"明星公司动态":[],"油管博主":[],"YouTube热点":[],"Twitter热点":[],"TikTok热点":[],"GitHub今日热门":[],"GitHub本周热门":[],"AI Agent热门":[],"MCP工具热门":[],"AI Skills热门":[],"HuggingFace热门":[]}},"analysis":{{"summary":"今日摘要","trends":["趋势1","趋势2"]}}}}
-
-CRITICAL: Return ONLY the JSON object, no markdown, no code blocks, no explanations. Maximum 10 items per category."""
-
         try:
+            # 1. 预处理：按分类分组并限制数量（减少输入 token）
+            # 每个分类最多取前15条发给 AI 筛选
+            grouped = {}
+            for item in self.all_items:
+                cat = item.get("板块", "其他")
+                if cat not in grouped:
+                    grouped[cat] = []
+                if len(grouped[cat]) < 15:
+                    grouped[cat].append(item)
+            
+            filtered_items = []
+            for items in grouped.values():
+                filtered_items.extend(items)
+                
+            print(f"  无需处理的数据: {len(self.all_items) - len(filtered_items)} 条 (每类限制15条输入)")
+            
+            # 2. 分批处理
+            BATCH_SIZE = 25  # 每批处理25条，确保输出不超时
+            batches = [filtered_items[i:i + BATCH_SIZE] for i in range(0, len(filtered_items), BATCH_SIZE)]
+            
+            final_categories = {}
+            final_analysis = {"summary": "今日 AI 摘要", "trends": []}
+            
             from openai import OpenAI
             client = OpenAI(
                 api_key=self.siliconflow_key,
                 base_url="https://api.siliconflow.cn/v1"
             )
-            
-            resp = client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": "You are a JSON formatter. Always return valid JSON only, no extra text."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=8000,
-                temperature=0.1  # 降低温度使输出更稳定
-            )
-            
-            content = resp.choices[0].message.content.strip()
-            
-            # 多种方式提取 JSON
-            result = None
-            errors = []
-            
-            # 方法1: 直接解析
-            try:
-                result = json.loads(content)
-            except Exception as e1:
-                errors.append(f"直接解析失败: {e1}")
+
+            for i, batch in enumerate(batches):
+                print(f"  🔄 处理批次 {i+1}/{len(batches)} ({len(batch)} 条)...")
                 
-                # 方法2: 移除 markdown 代码块
+                prompt = f"""You are a JSON formatter. Process the following AI news data and return ONLY valid JSON.
+
+Input data:
+{json.dumps(batch, ensure_ascii=False)}
+
+Requirements:
+1. Translate English to Chinese
+2. Summarize content to 60-80 Chinese characters
+3. Group by category
+4. Keep "额外" field
+5. JSON Output ONLY.
+
+Output Format:
+{{"categories":{{"CategoryName":[{{ "标题":"...", "内容":"...", "链接":"...", "日期":"...", "来源":"...", "额外":"..." }}]}}, "analysis":{{"summary":"...", "trends":["..."]}}}}
+"""
+
                 try:
-                    if "```" in content:
-                        content = content.split("```")[1]
-                        content = content.replace("json", "").replace("JSON", "").strip()
-                    result = json.loads(content)
-                except Exception as e2:
-                    errors.append(f"移除代码块后失败: {e2}")
+                    resp = client.chat.completions.create(
+                        model=self.model,
+                        messages=[
+                            {"role": "system", "content": "You are a JSON formatter. Return valid JSON only."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        max_tokens=8192,
+                        temperature=0.1
+                    )
                     
-                    # 方法3: 提取第一个 { 到最后一个 }
+                    content = resp.choices[0].message.content.strip()
+                    
+                    # 解析 JSON
+                    batch_result = None
                     try:
-                        start = content.find("{")
-                        end = content.rfind("}") + 1
-                        if start >= 0 and end > start:
-                            content = content[start:end]
-                        result = json.loads(content)
-                    except Exception as e3:
-                        errors.append(f"提取括号后失败: {e3}")
+                        if "```" in content:
+                            content = content.split("```")[1].replace("json", "").replace("JSON", "").strip()
+                        batch_result = json.loads(content)
+                    except:
+                        # 简单尝试提取 JSON
+                        try:
+                            s = content.find("{")
+                            e = content.rfind("}") + 1
+                            batch_result = json.loads(content[s:e])
+                        except Exception as e:
+                            print(f"  ❌ 批次 {i+1} 解析失败: {e}")
+                            continue
+
+                    # 合并结果
+                    if batch_result:
+                        # 合并分类
+                        cats = batch_result.get("categories", {})
+                        for cat_name, items in cats.items():
+                            if cat_name not in final_categories:
+                                final_categories[cat_name] = []
+                            final_categories[cat_name].extend(items)
                         
-                        # 保存原始内容以便调试
-                        debug_file = self.data_dir / f"debug_response_{self.today_str}.txt"
-                        debug_file.write_text(f"原始返回:\n{resp.choices[0].message.content}\n\n错误:\n" + "\n".join(errors), encoding="utf-8")
-                        raise Exception(f"所有JSON解析方法均失败。详见 {debug_file}")
+                        # 仅使用第一批的分析结果（通常包含新闻）
+                        if i == 0 and "analysis" in batch_result:
+                            final_analysis = batch_result["analysis"]
+                            
+                except Exception as e:
+                    print(f"  ❌ 批次 {i+1} 请求失败: {e}")
+
+            # 3. 最终组装
+            result = {
+                "date": self.today_str,
+                "categories": final_categories,
+                "analysis": final_analysis
+            }
             
-            if not result:
-                raise Exception("无法解析 AI 返回的 JSON")
-            
-            # 确保每个分类最多5条
-            categories = result.get("categories", {})
-            for category_name, items in categories.items():
-                if isinstance(items, list) and len(items) > 10:
-                    categories[category_name] = items[:10]
+            # 再次确保每类不超过10条
+            total = 0
+            for cat in result["categories"]:
+                result["categories"][cat] = result["categories"][cat][:10]
+                total += len(result["categories"][cat])
             
             # 保存
             (self.data_dir / f"digest_{self.today_str}.json").write_text(
