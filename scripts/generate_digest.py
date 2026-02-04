@@ -747,6 +747,58 @@ class AIDigestGenerator:
 
     # ==================== AI 处理 ====================
     
+    def clean_json(self, text):
+        """清洗并提取有效的 JSON"""
+        import re
+        text = text.strip()
+        
+        # 1. 移除 Markdown 代码块
+        if "```" in text:
+            pattern = r"```(?:json|JSON)?\s*([\s\S]*?)\s*```"
+            match = re.search(pattern, text)
+            if match:
+                text = match.group(1).strip()
+                
+        # 2. 尝试直接解析
+        try:
+            return json.loads(text)
+        except:
+            pass
+    
+        # 3. 修复常见错误
+        # 移除对象/数组末尾的逗号
+        text = re.sub(r",\s*}", "}", text)
+        text = re.sub(r",\s*]", "]", text)
+        
+        # 尝试解析
+        try:
+            return json.loads(text)
+        except:
+            pass
+            
+        # 4. 提取第一个有效的 JSON 对象/数组（寻找匹配的括号）
+        stack = []
+        start_index = -1
+        
+        for i, char in enumerate(text):
+            if char == '{' or char == '[':
+                if not stack:
+                    start_index = i
+                stack.append(char)
+            elif char == '}' or char == ']':
+                if stack:
+                    last = stack[-1]
+                    if (char == '}' and last == '{') or (char == ']' and last == '['):
+                        stack.pop()
+                        if not stack:
+                            # 找到一个完整的块
+                            candidate = text[start_index:i+1]
+                            try:
+                                return json.loads(candidate)
+                            except:
+                                pass
+        return None
+
     def ai_process(self):
         """AI 翻译和摘要（分批处理）"""
         if not self.siliconflow_key:
@@ -791,7 +843,10 @@ class AIDigestGenerator:
             print(f"  无需处理的数据: {len(self.all_items) - len(filtered_items)} 条 (每类限制15条输入)")
             
             # 2. 分批处理
-            BATCH_SIZE = 25  # 每批处理25条，确保输出不超时
+            print(f"  无需处理的数据: {len(self.all_items) - len(filtered_items)} 条 (每类限制15条输入)")
+            
+            # 2. 分批处理
+            BATCH_SIZE = 15  # 降低 Batch Size 防止截断
             batches = [filtered_items[i:i + BATCH_SIZE] for i in range(0, len(filtered_items), BATCH_SIZE)]
             
             final_categories = {}
@@ -835,21 +890,12 @@ Output Format:
                     
                     content = resp.choices[0].message.content.strip()
                     
-                    # 解析 JSON
-                    batch_result = None
-                    try:
-                        if "```" in content:
-                            content = content.split("```")[1].replace("json", "").replace("JSON", "").strip()
-                        batch_result = json.loads(content)
-                    except:
-                        # 简单尝试提取 JSON
-                        try:
-                            s = content.find("{")
-                            e = content.rfind("}") + 1
-                            batch_result = json.loads(content[s:e])
-                        except Exception as e:
-                            print(f"  ❌ 批次 {i+1} 解析失败: {e}")
-                            continue
+                    # 使用增强的 JSON 解析
+                    batch_result = self.clean_json(content)
+                    
+                    if not batch_result:
+                        print(f"  ❌ 批次 {i+1} 解析彻底失败，原始内容预览: {content[:100]}...")
+                        continue
 
                     # 合并结果
                     if batch_result:
